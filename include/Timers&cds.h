@@ -20,3 +20,6 @@ inline unsigned long printerCD = 10*1000;
 
 inline unsigned long decayTimer = 0;
 inline unsigned long decayCD = 10*1000;
+
+inline unsigned long  compTimer = 0;
+inline unsigned long compCD = 10*1000;

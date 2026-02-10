@@ -1,12 +1,12 @@
 #include <Arduino.h>
 #include <functions.h>
 
-void pumper(unsigned long now, bool readyForPump, bool &pumpRunning, unsigned long pumperTime, unsigned long pumpDesRunTime){
+void pumper(unsigned long now, bool readyForPump, bool &pumpRunning, unsigned long pumperTimer, unsigned long pumpDesRunTime){
   if(readyForPump == true && pumpRunning == false){
-    startPump(now, pumperTime, pumpRunning);
+    startPump(now, pumperTimer, pumpRunning);
     readyForPump = false;
   }
-  else if(now - pumperTime >= pumpDesRunTime){
+  else if(now - pumperTimer >= pumpDesRunTime){
     stopPump(pumpRunning);
   }
 }

@@ -1,12 +1,23 @@
 #include <Arduino.h>
 #include <functions.h>
 
-void printer(unsigned long now, int &printIteration, float currentPH, String phase, int clusterCenters[], int clusteredArray[], float phValues[], int diffPHVals, unsigned long &printerTimer, unsigned long printerCD){
+void printer(unsigned long now, String mode, unsigned long &printerTimer, unsigned long printerCD, int &printIteration){
   if(now - printerTimer >= printerCD){
     printerTimer = now;
-    linePrinter(0, printIteration, currentPH, diffPHVals, clusteredArray, phValues, clusterCenters);
-    linePrinter(1, printIteration, currentPH, diffPHVals, clusteredArray, phValues, clusterCenters);
-    linePrinter(2, printIteration, currentPH, diffPHVals, clusteredArray, phValues, clusterCenters);
+    if(mode == "doser"){
+      linePrinter(0);
+      linePrinter(1);
+      linePrinter(2);
+    }
+    else if(mode == "calibrater"){
+      linePrinter(0);
+      linePrinter(600);
+      linePrinter(601);
+      linePrinter(602);
+      linePrinter(603);
+      linePrinter(999);
+
+    }
     printIteration++;
   }
 };

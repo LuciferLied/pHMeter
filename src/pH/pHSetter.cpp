@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
-void pHSetter(unsigned long now, String phase, float currentPH, unsigned long &setterTime, int setterCD, bool &readyForPump, unsigned long pumpDesRuntime, unsigned long pHSetterArr[]){
+void pHSetter(unsigned long now, String phase, float currentPH, unsigned long &setterTimer, int setterCD, bool &readyForPump, unsigned long pumpDesRuntime, unsigned long pHSetterArr[]){
   if(phase == "Lowering"){
-    if(now - setterTime >= setterCD){
-      setterTime = now;
+    if(now - setterTimer >= setterCD){
+      setterTimer = now;
       readyForPump = true;
       if(7.0 >= currentPH && currentPH >= 6.5){pumpDesRuntime=pHSetterArr[0]*500;}
       if(6.5 > currentPH && currentPH >= 6.0){pumpDesRuntime=pHSetterArr[1]*500;}

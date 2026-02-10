@@ -1,6 +1,8 @@
 #include <Arduino.h>
+#include <config.h>
+#include <vector>
 
-void linePrinter(int line, int printIteration, float currentPH, int diffPHVals, int clusteredArray[], float phValues[], int clusterCenters[]){
+void linePrinter(int line){
   switch(line){
     case 0:
     {
@@ -8,10 +10,23 @@ void linePrinter(int line, int printIteration, float currentPH, int diffPHVals, 
       Serial.println();
       Serial.print("|/|");
       Serial.print("Version: 0.0.8");
-      Serial.print(" | ");
+      Serial.print(" | ");      
       Serial.print("timesPrinted: ");
       Serial.print (printIteration);
-      // Serial.print("  |  ");
+      int iterations = String(printIteration).length();
+      for (size_t i = 0; i < iterations; i++)
+      {
+        Serial.print(" ");
+      }
+      Serial.print(" | ");
+      Serial.print("CurrentPH: ");
+      Serial.print (currentPH);
+      for (size_t i = iterations; i > 0; i--)
+      {
+        Serial.print(" ");
+      }      
+      Serial.print("|/|");
+
       // Serial.print("phase:  ");
       // if(watching == true){
       //   Serial.print("Watching");
@@ -86,9 +101,86 @@ void linePrinter(int line, int printIteration, float currentPH, int diffPHVals, 
       }
     }
     break;
-    case 3:
+    case 4:
     {
 
+    }
+    break;
+    case 5:
+    {
+
+    }
+    break;
+    case 6:
+    {
+
+    }
+    break;
+    case 600:
+    {
+      Serial.print("|/|=MEDADC==SAMPLES===MEDMEDADC==SAMPLES===================|/|");
+      Serial.println();
+    }
+    break;
+    case 601:
+    {
+      int columnWidth = 6; // Adjust this to fit your largest numbers
+      for(int i = 0; i < ADCSize; i++) {
+        if(ADCValues[i] != 0) {
+          Serial.print("|/| ");
+          printPadded(ADCValues[i], columnWidth);
+          Serial.print(" | ");
+          printPadded(ADCOccurrences[i], columnWidth);
+          Serial.print(" | ");
+          printPadded(medMedVals[i], columnWidth);
+          Serial.print(" |   ");
+          printPadded(medMedOcc[i], columnWidth);
+          Serial.println(" |/|");
+        }
+      }
+    }
+    break;
+    case 602:
+    {
+      Serial.print("|/|=========================================================|/|");
+      Serial.println(); 
+      Serial.print("|/| ");
+      Serial.print("STDDev: ");
+      printFixedFloat(medMedianSTD, 2, 4);
+      Serial.print(" | ");
+      Serial.print("medMedMed: ");
+      printFixedFloat(medMedMed, 2, 6);
+      Serial.print(" | ");
+      Serial.print("( ");
+      Serial.print(medMedianArrIndex);
+      Serial.print(" / ");
+      Serial.print(medMedianArrSize);
+      Serial.print(" )");
+      Serial.print(" |/|");
+      Serial.println();
+    }
+    break;
+    case 603:
+    {
+      Serial.print("|/|==PH=====CLUSTERCENTER====STDDEV=========================|/|");
+      Serial.println(); 
+      int colWidth = 6;
+      for (size_t i = 0; i < diffPHVals; i++) {
+        Serial.print("|/| ");
+        printFixedFloat(phValues[i], 2, colWidth);
+        Serial.print(" |     ");
+        printFixedFloat(pHCallibrationArr[i], 2, colWidth);
+        Serial.print("     | ");
+        printFixedFloat(stdDevArr[i], 2, colWidth);
+        Serial.println(" |/|");
+      }
+    }
+    break;
+    case 999:
+    {
+      Serial.print("|/|==========================END============================|/|");
+      Serial.println();
+      Serial.println();
     }
     break;
     default:
