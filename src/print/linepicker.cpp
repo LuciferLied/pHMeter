@@ -154,16 +154,16 @@ void linePrinter(int line){
       Serial.print("STDDev: ");
       printFixedFloat(medMedianSTD, 2, 4);
       Serial.print(" | ");
-      Serial.print("medMedMed: ");
+      Serial.print("trimMeanMedi: ");
       printFixedFloat(medMedMed, 2, 6);
       // Serial.print("trimMean: ");
       // printFixedFloat(trimMean, 2, 6);     
       Serial.print(" | ");
-      Serial.print("( ");
+      Serial.print("(");
       Serial.print(trimMeanarrayIndex);
-      Serial.print(" / ");
+      Serial.print("/");
       Serial.print(trimArrSize);
-      Serial.print(" )");
+      Serial.print(")");
       if(EnoughMedMedVals == true){
         Serial.print("(READY)");
       }
@@ -187,6 +187,19 @@ void linePrinter(int line){
       }
     }
     break;
+    case 604:
+    {
+      Serial.print("|/|=========================================================|/|");
+      Serial.println(); 
+      Serial.print("|/| ");
+      Serial.print("TitCD: ");
+      Serial.print(titterTimer);
+      Serial.print(" | ");
+      Serial.print("titTime(ms): ");
+      printFixedFloat(titTime, 2, 6);
+      Serial.print(" |/|");
+      Serial.println();
+    }
     case 999:
     {
       Serial.print("|/|==========================END============================|/|");

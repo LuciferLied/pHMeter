@@ -1,13 +1,12 @@
 ///////Callibration
 #include <vector>
+
 inline bool calibrationScreen = false;
+inline const int phValuesAmm = 21;
 
-inline const int pHCallibrationArrSize = diffPHVals;
-inline int pHCallibrationArr[pHCallibrationArrSize];
+inline int pHCallibrationArr[phValuesAmm];
 inline int pHCallibrationArrIndex = 0;
-inline float stdDevArr[pHCallibrationArrSize];
-inline int stdDevArrIndex = 0;
-
+inline float stdDevArr[phValuesAmm];
 inline int pHValuesIndex = 0;
 
 inline unsigned long  titterTimer = 0;
@@ -26,7 +25,7 @@ inline int medMedOccComp[ADCSize];
 inline int medMedIndex = 0;
 inline int adcIndex = 0;
 
-inline const int trimArrSize = 60;
+inline const int trimArrSize = 1024;
 inline int trimMeanarrayIndex = 0;
 inline int trimMeanArray[trimArrSize];
 

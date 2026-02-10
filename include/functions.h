@@ -38,3 +38,4 @@ bool stable();
 float StdDev(int arr[], int size);
 void sortData(int values[], int occurrences[], int size);
 void sortAndPadData(int values[], int occurrences[], int size);
+void resetter();

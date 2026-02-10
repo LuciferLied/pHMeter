@@ -11,9 +11,10 @@ void printer(unsigned long now, String mode, unsigned long &printerTimer, unsign
     }
     else if(mode == "calibrater"){
       linePrinter(0);
-      linePrinter(600);
-      linePrinter(601);
+      //linePrinter(600);
+      //linePrinter(601);
       linePrinter(602);
+      linePrinter(604);
       linePrinter(603);
       linePrinter(999);
 
