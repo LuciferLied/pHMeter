@@ -18,8 +18,8 @@ inline const int maxADC = 900;
 
 inline int anal5ArrSize = 360;
 inline int medianArrSize = 100;
+inline const int medMedianArrSize = 60;
 
-inline const int medMedianArrSize = 360;
 inline int       medMedianArrIndex = 0;
 inline int       medMedianArr[medMedianArrSize];
 

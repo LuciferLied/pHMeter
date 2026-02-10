@@ -12,20 +12,11 @@ void linePrinter(int line){
       Serial.print("Version: 0.0.8");
       Serial.print(" | ");      
       Serial.print("timesPrinted: ");
-      Serial.print (printIteration);
-      int iterations = String(printIteration).length();
-      for (size_t i = 0; i < iterations; i++)
-      {
-        Serial.print(" ");
-      }
+      printPadded(printIteration, 7);
       Serial.print(" | ");
       Serial.print("CurrentPH: ");
-      Serial.print (currentPH);
-      for (size_t i = iterations; i > 0; i--)
-      {
-        Serial.print(" ");
-      }      
-      Serial.print("|/|");
+      Serial.print (currentPH);     
+      Serial.print(" |/|");
 
       // Serial.print("phase:  ");
       // if(watching == true){
@@ -118,23 +109,38 @@ void linePrinter(int line){
     break;
     case 600:
     {
-      Serial.print("|/|=MEDADC==SAMPLES===MEDMEDADC==SAMPLES===================|/|");
+      Serial.print("|/|=MEDADC==SAMPLES==MEDMEDADC==SAMPLES=====================|/|");
       Serial.println();
     }
     break;
     case 601:
     {
       int columnWidth = 6; // Adjust this to fit your largest numbers
-      for(int i = 0; i < ADCSize; i++) {
+      for(int i = 0; i < ADCSize; i++){
+        bool fake = true;
         if(ADCValues[i] != 0) {
           Serial.print("|/| ");
           printPadded(ADCValues[i], columnWidth);
           Serial.print(" | ");
           printPadded(ADCOccurrences[i], columnWidth);
-          Serial.print(" | ");
-          printPadded(medMedVals[i], columnWidth);
-          Serial.print(" |   ");
-          printPadded(medMedOcc[i], columnWidth);
+          for (int k = 0; k < ADCSize; k++){
+            if(medMedVals[k] != 0){
+              if(medMedVals[k] == ADCValues[i]){
+                Serial.print(" | ");
+                printPadded(medMedVals[k], columnWidth);
+                Serial.print(" |   ");
+                printPadded(medMedOcc[k], columnWidth);
+                fake = false;
+              }
+            }
+          }
+          if(fake == true){
+            Serial.print(" | ");
+            printPadded(ADCValues[i], columnWidth);
+            Serial.print(" |   ");
+            Serial.print("0 (x) ");
+            fake = false;
+          }
           Serial.println(" |/|");
         }
       }
@@ -150,19 +156,24 @@ void linePrinter(int line){
       Serial.print(" | ");
       Serial.print("medMedMed: ");
       printFixedFloat(medMedMed, 2, 6);
+      // Serial.print("trimMean: ");
+      // printFixedFloat(trimMean, 2, 6);     
       Serial.print(" | ");
       Serial.print("( ");
-      Serial.print(medMedianArrIndex);
+      Serial.print(trimMeanarrayIndex);
       Serial.print(" / ");
-      Serial.print(medMedianArrSize);
+      Serial.print(trimArrSize);
       Serial.print(" )");
+      if(EnoughMedMedVals == true){
+        Serial.print("(READY)");
+      }
       Serial.print(" |/|");
       Serial.println();
     }
     break;
     case 603:
     {
-      Serial.print("|/|==PH=====CLUSTERCENTER====STDDEV=========================|/|");
+      Serial.print("|/|==PH======CLUSTERCENTER===STDDEV=========================|/|");
       Serial.println(); 
       int colWidth = 6;
       for (size_t i = 0; i < diffPHVals; i++) {
@@ -179,7 +190,6 @@ void linePrinter(int line){
     case 999:
     {
       Serial.print("|/|==========================END============================|/|");
-      Serial.println();
       Serial.println();
     }
     break;

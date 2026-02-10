@@ -29,7 +29,7 @@ void calibDecay(unsigned long now, int adcVals[], int ADCOccurrences[], int medM
     for (int i = 0; i < size; i++) {
       // Fixed: Added [i] to check the specific occurrence
       if(medMedOcc[i] != 0){ 
-        medMedOcc[i] = medMedOcc[i] * 0.90;
+        medMedOcc[i] = medMedOcc[i] * 0.95;
         if(medMedOcc[i] > 10000){}
       }
     }

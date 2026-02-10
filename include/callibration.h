@@ -26,8 +26,16 @@ inline int medMedOccComp[ADCSize];
 inline int medMedIndex = 0;
 inline int adcIndex = 0;
 
+inline const int trimArrSize = 60;
+inline int trimMeanarrayIndex = 0;
+inline int trimMeanArray[trimArrSize];
+
+
 inline float medianSTD = 0;
 inline float medMedianSTD = 0;
 inline int medMedMed = 0;
+inline float trimMean = 0;
 
+inline unsigned long calibDecayTimer = 60;
+inline unsigned long calibDecayCD = 3*60*1000;
 inline float CalibDecFactor = 0.80;

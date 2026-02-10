@@ -16,9 +16,12 @@ void commander(unsigned long now, String &incCommand){
         mode = "doser";
         //reset
     }    
-      if(incCommand == "rawAnal"){
+    if(incCommand == "rawAnal"){
     }
     if(incCommand == "log"){
+        pHCallibrationArr[pHValuesIndex] = medMedMed;
+        stdDevArr[pHValuesIndex] = medMedianSTD;
+        pHValuesIndex++;
     }
     if(incCommand == "titTime"){
         titterTimer = now;
