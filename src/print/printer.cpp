@@ -5,19 +5,18 @@ void printer(unsigned long now, String mode, unsigned long &printerTimer, unsign
   if(now - printerTimer >= printerCD){
     printerTimer = now;
     if(mode == "doser"){
-      linePrinter(0);
-      linePrinter(1);
-      linePrinter(2);
+      linePrinter(now, 0);
+      linePrinter(now, 1);
+      linePrinter(now, 2);
     }
     else if(mode == "calibrater"){
-      linePrinter(0);
+      linePrinter(now, 0);
       //linePrinter(600);
       //linePrinter(601);
-      linePrinter(602);
-      linePrinter(604);
-      linePrinter(603);
-      linePrinter(999);
-
+      linePrinter(now, 602);
+      linePrinter(now, 604);
+      linePrinter(now, 603);
+      linePrinter(now, 999);
     }
     printIteration++;
   }

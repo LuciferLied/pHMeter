@@ -9,11 +9,14 @@ void setup(){
 void loop(){
   unsigned long now = millis();
   reader(now, incCommand);
-  commander(now, incCommand);
+  if(incCommand != ""){
+    commander(now, incCommand);}
+
   if(now - loopTimer >= loopCD){
     if(mode == "doser"){
-      doser(now);}
+      doser2(now);}
     else if(mode == "calibrater"){
       calibrater(now);}
-  } 
+  }
+  incCommand = "";
 }

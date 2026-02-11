@@ -2,7 +2,7 @@
 #include <vector>
 
 inline bool calibrationScreen = false;
-inline const int phValuesAmm = 21;
+inline const int phValuesAmm = 31;
 
 inline int pHCallibrationArr[phValuesAmm];
 inline int pHCallibrationArrIndex = 0;
@@ -10,8 +10,9 @@ inline float stdDevArr[phValuesAmm];
 inline int pHValuesIndex = 0;
 
 inline unsigned long  titterTimer = 0;
-inline unsigned long titterCD = 10*1000;
+inline unsigned long titterCD = 3*60*1000;
 inline int titTime = 0;
+inline int totalTitTime = 0;
 
 inline bool EnoughMedMedVals = false;
 

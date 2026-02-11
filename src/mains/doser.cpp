@@ -1,6 +1,5 @@
 #include <config.h>
 
-
 void doser(unsigned long now){
     int anal5Array[anal5ArrSize];
     int medianArr[medianArrSize];

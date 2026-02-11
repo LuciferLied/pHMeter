@@ -1,6 +1,6 @@
 void pHGetter(unsigned long now, int clusteredAmmLimit, int diffPHVals, float phValues[], int clusteredArray[], float &currentPH, int &highest){
     if (now < 1000) return;
-    int threshold = clusteredAmmLimit / 12;
+    int threshold = clusteredAmmLimit / 3;
     if (threshold < 1) threshold = 1;
     int bestIndex = -1;
     int bestCount = threshold;

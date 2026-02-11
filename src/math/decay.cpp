@@ -2,9 +2,10 @@ void decay(unsigned long now, int array[], int compArray[], int size, float deca
   if(now - decayTimer >= decayCD){
     decayTimer = now;
     for(int i = 0; i < size; i++ ){
-      if(now - compTimer >= compCD)
-      if(compArray[i]*0,66 >= array[i]){
-        array[i];
+      if(now - compTimer >= compCD){
+        if(compArray[i]*0,66 >= array[i]){
+          array[i] = 0;
+        }
       }
       array[i] = array[i] * decay;
     }

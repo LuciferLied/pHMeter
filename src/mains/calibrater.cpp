@@ -24,13 +24,6 @@ void calibrater(unsigned long now){
         }
         
     }
-    //sortData(ADCValues, ADCOccurrences, ADCSize);
-    //sortData(medMedVals, medMedOcc, ADCSize);
-
-    //bool stableValues = false;
-    //stableValues = stable();
     trimMeanarrayIndex++; if(trimMeanarrayIndex == trimArrSize){trimMeanarrayIndex = 0;EnoughMedMedVals = true;}
-    //medMedianArrIndex++; if(medMedianArrIndex == medMedianArrSize){medMedianArrIndex = 0;EnoughMedMedVals = true;}
     printer(now, mode,printerTimer, printerCD, printIteration);
-    //calibDecay(now, ADCValues, ADCOccurrences, medMedVals, medMedOcc, medMedOcc, medMedOccCompVals, ADCSize ,decayTimer, printerCD, calibDecayCD);
 }

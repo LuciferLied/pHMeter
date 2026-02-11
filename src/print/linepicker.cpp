@@ -2,20 +2,23 @@
 #include <config.h>
 #include <vector>
 
-void linePrinter(int line){
+void linePrinter(unsigned long now, int line){
   switch(line){
     case 0:
     {
       Serial.print("|/|=========================================================|/|");
       Serial.println();
       Serial.print("|/|");
-      Serial.print("Version: 0.0.8");
+      Serial.print("V0.0.8");
       Serial.print(" | ");      
-      Serial.print("timesPrinted: ");
-      printPadded(printIteration, 7);
+      Serial.print("prntNr: ");
+      printPadded(printIteration, 4);
       Serial.print(" | ");
-      Serial.print("CurrentPH: ");
-      Serial.print (currentPH);     
+      Serial.print("PH: ");
+      Serial.print (currentPH);
+      Serial.print(" | ");
+      Serial.print("phase: ");
+      Serial.print (phase);
       Serial.print(" |/|");
 
       // Serial.print("phase:  ");
@@ -160,13 +163,15 @@ void linePrinter(int line){
       // printFixedFloat(trimMean, 2, 6);     
       Serial.print(" | ");
       Serial.print("(");
-      Serial.print(trimMeanarrayIndex);
+      printPadded(trimMeanarrayIndex, 3);
       Serial.print("/");
       Serial.print(trimArrSize);
       Serial.print(")");
-      if(EnoughMedMedVals == true){
-        Serial.print("(READY)");
-      }
+      if (EnoughMedMedVals == true) {
+          printPaddedText("(READY)", 5);
+        } else {
+          printPaddedText("(WAIT)", 7);
+        }
       Serial.print(" |/|");
       Serial.println();
     }
@@ -189,17 +194,37 @@ void linePrinter(int line){
     break;
     case 604:
     {
+      unsigned long elapsed = millis() - titterTimer;
+      unsigned long remaining = (elapsed < titterCD) ? (titterCD - elapsed) : 0;
       Serial.print("|/|=========================================================|/|");
       Serial.println(); 
       Serial.print("|/| ");
-      Serial.print("TitCD: ");
-      Serial.print(titterTimer);
-      Serial.print(" | ");
       Serial.print("titTime(ms): ");
-      printFixedFloat(titTime, 2, 6);
+      printPadded(titTime, 4);
+      Serial.print(" | ");
+      Serial.print("TitCD: ");
+      printPadded((remaining/1000), 4);
+      Serial.print(" | ");
+      Serial.print("totalTitTime: ");
+      printPadded(totalTitTime, 7);
       Serial.print(" |/|");
       Serial.println();
     }
+    break;
+    case 607:
+    {
+      // int helpLineIndex = 0;
+      // switch (helpLineIndex)
+      // {
+      // case constant expression:
+      //   /* code */
+      //   break;
+      
+      // default:
+      //   break;
+      // }
+    }
+    break;
     case 999:
     {
       Serial.print("|/|==========================END============================|/|");

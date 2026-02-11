@@ -16,18 +16,24 @@ void commander(unsigned long now, String &incCommand){
         mode = "doser";
         //reset
     }    
-    if(incCommand == "rawAnal"){
+    if(incCommand == "rawanal"){
     }
     if(incCommand == "log"){
         pHCallibrationArr[pHValuesIndex] = medMedMed;
         stdDevArr[pHValuesIndex] = medMedianSTD;
+        totalTitTime = 0;
         pHValuesIndex++;
     }
-    if(incCommand == "titTime"){
+    if(incCommand == "tittime"){
         readyForPump = true;
         titterTimer = now;
         resetter();
-        pumper(now, readyForPump, pumpRunning, pumperTimer, titTime);
+        pump(now, titTime);
+        totalTitTime = totalTitTime + titTime;
+
+    }
+    if(incCommand == "reset"){
+        resetter();
     }
     if(incCommand == "tit+"){
         titTime = titTime + 10;
@@ -36,7 +42,10 @@ void commander(unsigned long now, String &incCommand){
         titTime = titTime + 25;
     }
     if(incCommand == "tit+++"){
-        titTime = titTime + 50;
+        titTime = titTime + 100;
+    }
+    if(incCommand == "tit++++"){
+        titTime = titTime + 200;
     }
     if(incCommand == "tit-"){
         titTime = titTime - 10;
@@ -45,7 +54,14 @@ void commander(unsigned long now, String &incCommand){
         titTime = titTime - 25;
     }
     if(incCommand == "tit---"){
-        titTime = titTime - 50;
+        titTime = titTime - 100;
+    }
+    if(incCommand == "tit----"){
+        titTime = titTime - 200;
+    }
+    if(incCommand == "emptypump"){
+        readyForPump = true;
+        pump(now, 10*1000);
     }
     if(incCommand == "prev"){
         if(pHValuesIndex == 0){
@@ -73,28 +89,28 @@ void commander(unsigned long now, String &incCommand){
 
     if(incCommand == "result"){
         Serial.println("Insertable values");
-        Serial.println("double clusterCenters[diffPHVals] = {");
+        Serial.println("int clusterCenters[diffPHVals] = {");
         int j=0;
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 7; i++){
             for (int k = 0; k < 5; k++){
                 Serial.print(pHCallibrationArr[j]);
                 Serial.print(",");
                 j++;
-                if(j==phValuesAmm){k=5, i=5;}
+                if(j==phValuesAmm){k=5, i=7;}
             }
             Serial.println("");
         }
         Serial.println("};");
 
         Serial.println("Insertable values");
-        Serial.println("double stdDev[diffPHVals] = {");
+        Serial.println("int stdDev[diffPHVals] = {");
         j=0;
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 7; i++){
             for (int k = 0; k < 5; k++){
                 Serial.print(stdDevArr[j]);
                 Serial.print(",");
                 j++;
-                if(j==phValuesAmm){k=5, i=5;}
+                if(j==phValuesAmm){k=5, i=7;}
             }
             Serial.println("");
         }
