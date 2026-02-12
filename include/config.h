@@ -6,8 +6,10 @@
 #include <Timers&cds.h>
 
 
-inline String mode= "doser";
-inline String phase = "";
+//inline String mode= "Doser";
+inline String mode= "Calibrator";
+
+inline String phase = "Watching"; //add a sepperate location for phase/mode strings
 inline String incCommand;
 
 inline const int digiPin = 7;
@@ -27,14 +29,23 @@ inline int       clusteredArray[diffPHVals];
 inline int       clusteredAmmLimit = 36;
 inline float     decayFactor = 0.95;
 
-inline int       MAX_DESIRED_PH = 6.5;
-inline int       MIN_DESIRED_PH = 5.5;
+inline float       MAX_DESIRED_PH = 6.4;
+inline float       MIN_DESIRED_PH = 5.6;
 inline float     currentPH = 0;
 inline int       highest = 0;
-inline int pumpDesRunTime;
 
 inline unsigned long pumpDesRuntime = 0;
-inline unsigned long pHSetterArr[] = {10, 5, 3, 2, 1, 0.5};
+inline unsigned long pHSetterArr[] = {8, 4, 2, 1, 0.5};
+inline float testerMultiplier = 0.36;   // set to 1 in production
+
+//                                     40ml 40 30 20 10
+
+//                                          6*6 4*6 2*6 1*6
+//inline unsigned long pHSetterArr[] = {36, 36, 26, 16, 8};
+
+
+
+
 inline int           CompMedmedArr[medMedianArrSize];
 
 inline const  int trimMeanArrSize = 36;

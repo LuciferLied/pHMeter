@@ -6,32 +6,57 @@ void linePrinter(unsigned long now, int line){
   switch(line){
     case 0:
     {
-      Serial.print("|/|=========================================================|/|");
+      Serial.print("|/|=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=|/|");
       Serial.println();
-      Serial.print("|/|");
+      Serial.print("|/| ");
       Serial.print("V0.0.8");
       Serial.print(" | ");      
       Serial.print("prntNr: ");
       printPadded(printIteration, 4);
       Serial.print(" | ");
+      Serial.print("Mode: ");
+      Serial.print (mode);
+      Serial.print(" | ");
+      Serial.print("phase: ");
+      printPaddedString(phase, 10);
+      Serial.print(" |/|");
+      Serial.println();
+
+      unsigned long elapsed = 0;
+      unsigned long remaining = 0;
+      Serial.print("|/|---------------------------------------------------------|/|");
+      //Serial.print("|/|=========================================================|/|");
+      Serial.println();
+      Serial.print("|/| ");
       Serial.print("PH: ");
       Serial.print (currentPH);
       Serial.print(" | ");
-      Serial.print("phase: ");
-      Serial.print (phase);
-      Serial.print(" |/|");
-
-      // Serial.print("phase:  ");
-      // if(watching == true){
-      //   Serial.print("Watching");
-      // }
-      // if(lowering == true){
-      //   Serial.print("Lowering");
-      // }
-      // if(calibrating == true){
-      //   Serial.print("Watching");
-      // }
-      //Serial.print(" |/|");
+      if(mode == "Doser"){
+        if(phase == "Watching"){
+          Serial.print("SetterCD: ");
+          elapsed = millis() - setterTimer;
+          remaining = (elapsed < setterCD) ? (setterCD - elapsed) : 0;
+        }
+        if(phase == "Lowering"){
+          Serial.print("PumperCD: ");
+          elapsed = millis() - pumperTimer;
+          remaining = (elapsed < pumperCD) ? (pumperCD - elapsed) : 0;
+        }
+      }
+      else if(mode == "Calibrator"){
+        
+      }
+      printPadded((remaining/1000), 4);
+      Serial.print(" | ");
+      if(mode == "Doser"){
+        Serial.print("PumpTime: ");
+        printPadded(pumpDesRuntime, 4);
+        Serial.print("(ms)");
+        Serial.print("          |/| ");
+      }
+      else if(mode == "Calibrator"){
+        
+      }
       Serial.println();
     }
     break;
@@ -43,55 +68,40 @@ void linePrinter(unsigned long now, int line){
     break;
     case 2:
     {
-    int phWidth = 1;
-    if(10 <= currentPH && currentPH < 100)
-      phWidth = 2;
-    if(100 <= currentPH && currentPH < 1000)
-      phWidth = 3;
-    if(1000 <= currentPH && currentPH < 10000)
-      phWidth = 4;
-    for(int i = 0; i < diffPHVals; i++){
-      int sample = clusteredArray[i];
-      int sampleColWidth = 1;
-      if(10 <= sample && sample < 100)
-        sampleColWidth = 2;
-      if(100 <= sample && sample < 1000)
-        sampleColWidth = 3;
-      if(1000 <= sample && sample < 10000)
-        sampleColWidth = 4;
-      Serial.print("|/|");
-      if(currentPH == phValues[i]){
-        Serial.print("->");
-        Serial.print(phValues[i]);
-        Serial.print("<-|->");
-        Serial.print(clusterCenters[i]);
-        Serial.print("<-|->");
-        Serial.print(clusteredArray[i]);
-      }
-      else{
-        Serial.print("  ");
-        Serial.print(phValues[i]);
-        Serial.print("  |  ");
-        Serial.print(clusterCenters[i]);
-        Serial.print("  |  ");
-        Serial.print(clusteredArray[i]);
-      }
-      if(currentPH == phValues[i]){
-        Serial.print("<-");
-        if(100 < sample && sample < 1000)
-          Serial.print(" ");
-        else if(10 < sample && sample < 100)
-          Serial.print("  ");
-      }
-      else {
-        int arrow = 2;
-        int neededSpaces = (arrow * 2 + phWidth) - sampleColWidth+1;
-        for (int j = 0; j < neededSpaces; j++) {
-            Serial.print(" ");
-        }
-      }
-      Serial.print("|/|");
-      Serial.println(); 
+      for(int i = 0; i < diffPHVals; i++){
+          int sample = clusteredArray[i];
+          
+          Serial.print("|/|");
+          
+          if(currentPH == phValues[i]){
+            // Active Row: Uses arrows
+            Serial.print("->");
+            Serial.print(phValues[i]);
+            Serial.print("<-|->");
+            Serial.print(clusterCenters[i]);
+            Serial.print("<-|->");
+            
+            // Fixed-width Sample Container (Width of 5)
+            int chars = Serial.print(sample);
+            Serial.print("<-");
+            for (int s = 0; s < (5 - chars); s++) Serial.print(" "); 
+          }
+          else{
+            // Normal Row: Uses spaces to match the arrows exactly
+            Serial.print("  "); // Matches "->"
+            Serial.print(phValues[i]);
+            Serial.print("  |  "); // Matches "<-|->" (5 chars)
+            Serial.print(clusterCenters[i]);
+            Serial.print("  |  "); // Matches "<-|->" (5 chars)
+            
+            // Fixed-width Sample Container (Width of 5)
+            int chars = Serial.print(sample);
+            for (int s = 0; s < (5 - chars); s++) Serial.print(" ");
+            
+            Serial.print("  "); // Matches "<-"
+          }
+
+          Serial.println("|/|"); 
       }
     }
     break;

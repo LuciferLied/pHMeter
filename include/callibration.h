@@ -11,7 +11,7 @@ inline int pHValuesIndex = 0;
 
 inline unsigned long  titterTimer = 0;
 inline unsigned long titterCD = 3*60*1000;
-inline int titTime = 0;
+inline int titTime = 10*1000;
 inline int totalTitTime = 0;
 
 inline bool EnoughMedMedVals = false;

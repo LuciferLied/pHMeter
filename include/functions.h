@@ -6,6 +6,8 @@
 void reader(unsigned long now, String &incCommand);
 void commander(unsigned long now, String &incCommand);
 void resetter();
+void phaseHandler(unsigned long now);
+
 
 void doser(unsigned long now);
 void doser2(unsigned long now);
@@ -23,7 +25,7 @@ float trimmedMean(int *values, int n, float trimFraction);
 void pHandler(unsigned long now, int currentPH, int MIN_DESIRED_PH, int MAX_DESIRED_PH, String &phase);
 void pHGetter(unsigned long now, int clusteredAmmLimit, int diffPHVals, float phValues[], int clusteredArray[], float &currentPH, int &highest);
 void pHSetter(unsigned long now, String phase, float currentPH, unsigned long &setterTime, int setterCD, bool &readyForPump, unsigned long &pumpDesRuntime, unsigned long pHSetterArr[]);
-void pumper(unsigned long now, bool readyForPump, bool &pumpRunning, unsigned long &pumperTimer, unsigned long pumpDesRunTime);
+void pumper(unsigned long now, bool &readyForPump, bool &pumpRunning, unsigned long &pumperTimer, unsigned long pumpDesRuntime);
 void startPump(unsigned long now, unsigned long &pumperTime, bool &pumpRunning);
 void stopPump(bool &pumpRunning);
 
@@ -35,6 +37,8 @@ void linePrinter(unsigned long now, int line);
 void printPadded(int value, int width);
 void printFixedFloat(float value, int precision, int width);
 void printPaddedText(const char* text, int width);
+void printPaddedString(String text, int width);
+
 
 
 void matrixPicker();

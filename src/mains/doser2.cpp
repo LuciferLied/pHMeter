@@ -23,7 +23,6 @@ void doser2(unsigned long now){
     }
     trimMeanMediArrayIndex++; if(trimMeanMediArrayIndex == trimMeanMediArraySize){trimMeanMediArrayIndex = 0;}
     pHGetter(now, clusteredAmmLimit, diffPHVals, phValues, clusteredArray, currentPH, highest);
-    if(currentPH >= MAX_DESIRED_PH){phase = "lower";}
     pHSetter(now, phase, currentPH, setterTimer, setterCD, readyForPump, pumpDesRuntime, pHSetterArr);
     printer(now, mode,printerTimer, printerCD, printIteration);
     decay(now, clusteredArray, compClusterArrar, diffPHVals, decayFactor, decayTimer, decayCD, compTimer, compCD);

@@ -1,5 +1,7 @@
 reading of pH7 buffer == STDDev: 0.91 | trimMeanMedi: 617.00
 Values are high bounds. Though, buffer7 seems to be toward low bound.
+Pump delivers about 10-11mL pr 10sec
+
 
 Process:
     Get tap water

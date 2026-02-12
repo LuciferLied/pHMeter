@@ -36,3 +36,11 @@ void printPaddedText(const char* text, int width) {
   int len = strlen(text);
   for (int s = 0; s < (width - len); s++) Serial.print(" ");
 }
+
+void printPaddedString(String text, int width) {
+  Serial.print(text);
+  int len = text.length();
+  for (int s = 0; s < (width - len); s++) {
+    Serial.print(" ");
+  }
+}

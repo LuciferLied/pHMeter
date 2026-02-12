@@ -1,13 +1,16 @@
 #include <Arduino.h>
 #include <functions.h>
+#include <config.h> //only for testermultier. remove later
 
-void pumper(unsigned long now, bool readyForPump, bool &pumpRunning, unsigned long &pumperTimer, unsigned long pumpDesRunTime){
-  if(readyForPump == true && pumpRunning == false){
+void pumper(unsigned long now, bool &readyForPump, bool &pumpRunning, unsigned long &pumperTimer, unsigned long pumpDesRunTime){
+  if(readyForPump == true && pumpRunning == false && phase == "Lowering"){
+    if(now - pumperTimer >= pumperCD){
     readyForPump = false;
     pumpRunning = true;
     startPump(now, pumperTimer, pumpRunning);
+    }
   }
-  else if(now - pumperTimer >= pumpDesRunTime){
+  else if(now - pumperTimer >= pumpDesRunTime*testerMultiplier){
     stopPump(pumpRunning);
   }
 }
@@ -19,6 +22,9 @@ void stopPump(bool &pumpRunning){
     digitalWrite(7, HIGH); // Relay OFF
     pumpRunning = false;
 }
+
+
+
 
 
 void pump(unsigned now, int time){
