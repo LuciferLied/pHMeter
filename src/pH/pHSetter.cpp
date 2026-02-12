@@ -14,4 +14,4 @@ void pHSetter(unsigned long now, String phase, float currentPH, unsigned long &s
       else if(5.6 > currentPH && currentPH >= 5.5){pumpDesRuntime=pHSetterArr[4]*1000;}
     }
   }
-}
+} 

@@ -37,3 +37,75 @@ Notes:
 
     THIS DOES NOT TAKE INTO CONSIDERATION:
         temps, other than what your module/sensorm might have on it.
+
+
+
+Program Execution
+
+                                stop()        Linepicker()
+                        start()  /                |
+                            \   /              Printer()
+                             \ /     Commander() /
+                              |  Reader() /     /
+                            Pumper() /   /     /
+          Mode/PhaseHandler()/      /   /     /
+                   /        /      /   /     /
+Setup() -> Loop(){} -> - -> - -> - -> - -> - ->|
+          ^                                    |
+          |                                   / \
+          ^                                  /   \___________________   
+          |                                 /                        \
+          ^                          Calibrator(){}                 Doser(){} 
+          |                               /                           |
+          ^                           sensor()                      Sensor()     
+          |                             /                             |
+          ^                        TrimMean()                      TrimMean() 
+          |                           /                               |
+         /^                     TrimMeanStd()                    TrimMeanStd()   
+        / |                         /                                 |
+       |  ^                   TrimMean()              TrimMeanMedian v.s TrimMeanTrimmed?()    
+       |  |_______________________/                                   |
+       |                                                         Clustering() 
+        \                                                             |
+         \                                                         pHGetter() 
+          \                                                           |
+           \                                                      pHSetter()  
+            \                                                         |
+             \                                                      decay()
+              \_______________________________________________________/              
+
+
+//Variables
+
+Setup{
+    Digipin
+    Baud
+}
+
+loop{
+    mode
+}
+
+phaseHandler{
+    mode
+    phase
+}
+
+pumper{
+    ReadyForPumping
+}
+start{pumperTimer}
+stop{pumperTimer}
+
+reader{incCommand}
+commander{incCommand}
+
+doser{}
+collectData{ADCArray/ind}????????
+math{ADCArray
+    trimMean
+    trimMeanArr
+    trimMeanStd
+    trimMeanMedi
+    trimMeanMediArr
+    }

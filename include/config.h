@@ -6,8 +6,8 @@
 #include <Timers&cds.h>
 
 
-//inline String mode= "Doser";
-inline String mode= "Calibrator";
+inline String mode= "Doser";
+//inline String mode= "Calibrator";
 
 inline String phase = "Watching"; //add a sepperate location for phase/mode strings
 inline String incCommand;
