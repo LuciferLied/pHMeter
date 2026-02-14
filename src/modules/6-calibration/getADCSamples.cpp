@@ -1,7 +1,7 @@
 #include <config.h>
 
 void getADCSamples(int values[], int occurrences[], int size, int &usedSpace) {
-  int sampleBatches = 6;
+  int sampleBatches = 36;
   int sammpleIndex = 0;
   for (int i = 0; i < size; i++) {
     values[i] = 0;
