@@ -177,14 +177,35 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|==ADC==samples==filt>100=====================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
-        Serial.print("|/| ");
-        printPadded(calibValueArr[i], 6);
-        Serial.print(" | ");
+      Serial.print("|/| ");
+      printPadded(calibValueArr[i], 6);
+      Serial.print(" | ");
+      printPadded(calibOccurArr[i], 6);
+      Serial.print(" | ");
+      if (calibOccurArr[i] > 100) {
         printPadded(calibOccurArr[i], 6);
-        Serial.print(" | ");
-        printPadded(calibOccurArrClean1[i], 6);
-        Serial.print(" | ");
-        Serial.println(" |/|");
+      } else {
+        printPadded(0, 6);
+      }
+      Serial.print(" | ");
+      if (calibOccurArr[i] > 1000) {
+        printPadded(calibOccurArr[i], 6);
+      } else {
+        printPadded(0, 6);
+      }
+      Serial.print(" | ");
+      if (calibOccurArr[i] > 2000) {
+        printPadded(calibOccurArr[i], 6);
+      } else {
+        printPadded(0, 6);
+      }
+      Serial.print(" | ");
+      if (calibOccurArr[i] > 2000) {
+        printPadded(calibValueArr[i], 6);
+      } else {
+        printPadded(0, 6);
+      }
+      Serial.println(" |/|");
     }
   } break;
   case 607: {
