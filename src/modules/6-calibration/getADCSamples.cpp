@@ -3,6 +3,11 @@
 void getADCSamples(int values[], int occurrences[], int size, int &usedSpace) {
   int sampleBatches = 6;
   int sammpleIndex = 0;
+  for (int i = 0; i < size; i++) {
+    values[i] = 0;
+    occurrences[i] = 0;
+  }
+
   for (int i = 0; i < sampleBatches; i++) {
     analDicoArrIndex = 0;
     while (analDicoArrIndex < analDiCoArrSize) {
