@@ -199,9 +199,9 @@ void linePrinter(unsigned long now, int line){
       Serial.println(); 
       for (size_t i = 0; i < diffADCVals; i++) {
         Serial.print("|/| ");
-        printPadded(clusteredSamplesArray[i], 6);
+        printPadded(calibValueArr[i], 6);
         Serial.print(" | ");
-        printPadded(clusteredSamplesCompArray[i], 6);
+        printPadded(calibOccurArr[i], 6);
         Serial.print(" | ");
         printPadded(clusterCenters[i], 6);
         Serial.print(" | ");

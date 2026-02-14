@@ -37,3 +37,5 @@ void printPaddedString(String text, int width);
 //////printer//////printer//////printer//////printer
 //////calibrator//////calibrator//////calibrator//////
 void resetter();
+void getADCSamples(int values[], int occurrences[], int size, int &usedSpace)
+
