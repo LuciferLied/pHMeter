@@ -190,8 +190,8 @@ void linePrinter(unsigned long now, int line) {
         if (i < diffPHVals) {
           printFixedFloat(phValues[i], 2, 6);
         }
+        Serial.println(" |/|");
       }
-      Serial.println(" |/|");
     }
   } break;
   case 607: {
