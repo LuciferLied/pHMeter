@@ -17,8 +17,8 @@ inline unsigned long pumpTotalONTime = 0;
 ////////equipment//////equipment//////equipment//////
 
 //////loop//////loop//////loop//////loop//////loop
-inline String mode = "Doser";
-// inline String mode = "Calibrator";
+//inline String mode = "Doser";
+inline String mode = "Calibrator";
 inline String phase = "Watching";
 inline unsigned long lastPhaseCheckTime = 0;
 inline unsigned long phaseCheckCD = 6*1000;
