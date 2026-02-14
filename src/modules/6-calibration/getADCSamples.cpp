@@ -19,7 +19,7 @@ void getADCSamples(int values[], int occurrences[], int size, int &usedSpace) {
         break;
       }
       bool exists = false;
-      for (int k = 0; k < size; k++) {
+      for (int k = 0; k < sammpleIndex; k++) {
         if (analDiCoArr[i] == values[k]) {
           occurrences[k]++;
           k = size;

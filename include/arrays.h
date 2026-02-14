@@ -25,5 +25,8 @@ inline float stdDevArr[diffPHVals];
 inline const int calibValArrSize = 100;
 inline int calibValueArr[calibValArrSize];
 inline int calibOccurArr[calibValArrSize];
+inline int calibOccurArrClean1[calibValArrSize];
+
+
 inline int usedSize = 0;
 //////calibrator//////calibrator//////calibrator//////

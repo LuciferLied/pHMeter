@@ -174,10 +174,9 @@ void linePrinter(unsigned long now, int line) {
     printPadded(trimOfTrimCluster, 4);
     Serial.println();
 
-    Serial.print("|/|==ADC==sample==prevCenter==pH=====================|/|");
+    Serial.print("|/|==ADC==samples==filter=====================|/|");
     Serial.println();
-    for (size_t i = 0; i < calibValArrSize; i++) {
-      if(calibValueArr[i] != 0){
+    for (int i = 0; i < calibValArrSize; i++) {
         Serial.print("|/| ");
         printPadded(calibValueArr[i], 6);
         Serial.print(" | ");
@@ -191,7 +190,6 @@ void linePrinter(unsigned long now, int line) {
           printFixedFloat(phValues[i], 2, 6);
         }
         Serial.println(" |/|");
-      }
     }
   } break;
   case 607: {
