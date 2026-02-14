@@ -6,6 +6,6 @@ void calibrator2(unsigned long now) {
   analDicoArrIndex = 0;
   usedSize = 0;
   getADCSamples(calibValueArr, calibOccurArr, 100, usedSize);
-
   sortData(calibValueArr, calibOccurArr, 100);
+  syncShiftArrays(calibValueArr, calibOccurArr, 100);
 }

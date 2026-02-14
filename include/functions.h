@@ -39,4 +39,4 @@ void printPaddedString(String text, int width);
 void calibrator2(unsigned long now);
 void resetter();
 void getADCSamples(int values[], int occurrences[], int size, int &usedSpace);
-
+void syncShiftArrays(int values[], int counts[], int size);

@@ -176,7 +176,7 @@ void linePrinter(unsigned long now, int line) {
 
     Serial.print("|/|==ADC==samples==filter=====================|/|");
     Serial.println();
-    for (int i = 0; i < calibValArrSize; i++) {
+    for (int i = 0; i < usedSize; i++) {
         Serial.print("|/| ");
         printPadded(calibValueArr[i], 6);
         Serial.print(" | ");
