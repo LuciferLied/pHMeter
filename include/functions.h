@@ -21,6 +21,7 @@ void clusterer(int arr[], int size, int sample, int outputArray[]);
 void calibClusterer(int arr[], int size, float sample, int outputArray[]);
 void sampleDecay(unsigned long now);
 void trimMeanGetter(unsigned long now);
+void sortData(int values[], int occurrences[], int size);
 //////math//////math//////math//////math//////math
 //////pH//////pH//////pH//////pH//////pH//////pH//////pH
 void pHGetter(unsigned long now, int clusteredAmmLimit, int diffPHVals, float phValues[], int clusteredArray[], float &currentPH, int &highest);

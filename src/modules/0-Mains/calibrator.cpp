@@ -28,7 +28,7 @@ void calibrator(unsigned long now) {
       diffADCVals++;
     }
   }
-
+  sortData(clusteredSamplesArray,clusteredSamplesCompArray,diffADCVals);
   trimMeanArray[trimMeanArrayIndex] = trimmedMean(analDiCoArr, analDiCoArrSize, trimPercADCCalib);
   trimMeanArrayIndex++;
   if (trimMeanArrayIndex == trimMeanArrSize || enoughSamples == true) {
