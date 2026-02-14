@@ -205,7 +205,7 @@ void linePrinter(unsigned long now, int line){
         Serial.print(" | ");
         printPadded(clusterCenters[i], 6);
         Serial.print(" | ");
-        printPadded(phValues[i], 6);
+        printFixedFloat(phValues[i],2,6);
         Serial.println(" |/|");
       }
     }
