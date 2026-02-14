@@ -1,62 +1,88 @@
-#pragma once
 #include <Arduino.h>
-#include <data.h>
+#include <arrays.h>
 #include <functions.h>
-#include <callibration.h>
-#include <Timers&cds.h>
+#include <math.h>
 
+////////equipment//////equipment//////equipment//////
+inline const int DIGIPIN = 7;
+inline const int ANALPIN = A5;
+inline const int MINADC = 1;
+inline const int MAXADC = 1023;
+inline bool runPump = false;
+inline unsigned long lastPumpTime = 0;
+inline unsigned long pumpCD = 3*60*1000;
+inline unsigned long pumpTimingOptionsArr[] = {36, 30, 24, 18, 12, 6};
+inline unsigned long currentPumpTiming = 0;
+inline unsigned long pumpTotalONTime = 0;
+////////equipment//////equipment//////equipment//////
 
-inline String mode= "Doser";
-//inline String mode= "Calibrator";
+//////loop//////loop//////loop//////loop//////loop
+inline String mode = "Doser";
+// inline String mode = "Calibrator";
+inline String phase = "Watching";
+inline unsigned long lastPhaseCheckTime = 0;
+inline unsigned long phaseCheckCD = 6*1000;
+inline bool handlingPump = false;
+inline String incCommand = "";
+inline unsigned long lastLoopTime = 0;
+inline unsigned long loopCD = 10;
+//////loop//////loop//////loop//////loop//////loop
 
-inline String phase = "Watching"; //add a sepperate location for phase/mode strings
-inline String incCommand;
-
-inline const int digiPin = 7;
-inline const int analPin= A5;
-
-inline const int minADC = 300;
-inline const int maxADC = 900;
-
-inline int anal5ArrSize = 360;
-inline int medianArrSize = 100;
-inline const int medMedianArrSize = 60;
-
-inline int       medMedianArrIndex = 0;
-inline int       medMedianArr[medMedianArrSize];
-
-inline int       clusteredArray[diffPHVals]; 
-inline int       clusteredAmmLimit = 36;
-inline float     decayFactor = 0.95;
-
-inline float       MAX_DESIRED_PH = 6.4;
-inline float       MIN_DESIRED_PH = 5.6;
-inline float     currentPH = 0;
-inline int       highest = 0;
-
-inline unsigned long pumpDesRuntime = 0;
-inline unsigned long pHSetterArr[] = {8, 4, 2, 1, 0.5};
-inline float testerMultiplier = 0.36;   // set to 1 in production
-
-//                                     40ml 40 30 20 10
-
-//                                          6*6 4*6 2*6 1*6
-//inline unsigned long pHSetterArr[] = {36, 36, 26, 16, 8};
-
-
-
-
-inline int           CompMedmedArr[medMedianArrSize];
-
-inline const  int trimMeanArrSize = 36;
-inline float trimPerc = 0.25;
-inline float trimMeanSTD = 0;
+//////doser//////doser//////doser//////doser//////
+inline int trimPercADC = 0.15;
+inline float trimMeanArrSTD = 0;
 inline float stdLim = 1.5;
-inline float trimPercMed = 0.15;
-inline const  int trimMeanMediArraySize = 36;
-inline int trimMeanMediArray[trimMeanMediArraySize];
-inline int trimMeanMediArrayIndex = 0;
-inline int trimmedMeanMedian = 0;
-inline int compClusterArrar[trimMeanMediArraySize];
 
+
+// Arrays can be found in array.h and data.h
+//////doser//////doser//////doser//////doser//////
+
+//////pH//////pH//////pH//////pH//////pH//////pH
+inline float currentPH = 0;
+inline float MIN_DESIRED_PH = 5.4; 
+inline float MAX_DESIRED_PH = 6.5;
+inline int mostSampled = 0;
+inline int minConsSampleSize = 6;
+inline unsigned long lastSetterTime = 0;
+inline unsigned long setterCD = 3600;
+inline bool rollingPHReady = false;
+inline float rollingPH = 0;
+inline float rollTrimPerc = 0.10;
+inline unsigned long lastRollPHTime = 0;
+inline unsigned long rollPHCD = 1*1000;
+//////pH//////pH//////pH//////pH//////pH//////pH
+
+//////decay//////decay//////decay//////decay//////decay
+inline float decayFactor = 0.98;
+inline unsigned long lastDecayTime = 0;
+inline unsigned long decayCD = 3 * 60 * 1000;
+inline float compFactor = 3.6;
+inline unsigned long lastCompTime = 0;
+inline unsigned long compCD = 6 * 60 * 1000;
+//////decay//////decay//////decay//////decay//////decay
+
+//////printer//////printer//////printer//////printer
 inline int printIteration = 0;
+inline unsigned long lastPrinterTime = 0;
+inline unsigned long printerCD = 10 * 1000;
+//////printer//////printer//////printer//////printer
+
+//////calibrator//////calibrator//////calibrator//////
+inline int pHValuesIndex = 0;
+inline int diffADCVals = 0;
+inline float stdDevOfADC = 0;
+inline float trimPercADCCalib = 0.25;
+inline bool enoughSamples = false;
+inline float trimTrimPercADCCalib = 0.25;
+inline float stdDevOfTrim = 0;
+inline float trimOfTrim = 0;
+inline int mediOfTrim = 0;
+
+inline unsigned long lastTitTime = lastPumpTime;
+inline unsigned long titTimeSetting = 100;
+inline unsigned long titCD = 3*60*1000;
+
+
+inline int medianOfTrimCluster = 0;
+inline int trimOfTrimCluster = 0;
+//////calibrator//////calibrator//////calibrator//////

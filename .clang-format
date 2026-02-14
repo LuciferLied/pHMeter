@@ -1,0 +1,24 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# 2-space indents
+IndentWidth: 2
+
+# This sets your maximum line length
+ColumnLimit: 106
+
+# This ensures the "hug" (no space between ) and {)
+SpaceBeforeBraces: Never
+
+# Ensures the brace stays on the same line
+BreakBeforeBraces: Attach
+
+# Space after 'if', 'while', etc. 
+# Set to 'Never' if you want if(condition){
+# Set to 'ControlStatements' for if (condition){
+SpaceBeforeParens: ControlStatements
+
+# Keeps the code structure clean
+AllowShortIfStatementsOnASingleLine: false
+---

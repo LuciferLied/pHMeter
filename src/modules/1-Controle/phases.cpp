@@ -1,7 +1,7 @@
 #include <config.h>
 
 void phaseHandler(unsigned long now){
-    if(now - phaseTimer >= phaseCD){ 
+    if(now - lastPhaseCheckTime >= phaseCheckCD){ 
         if(currentPH >= MAX_DESIRED_PH){
             phase = "Lowering";
         }

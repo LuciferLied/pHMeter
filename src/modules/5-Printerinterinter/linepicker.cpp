@@ -1,12 +1,11 @@
-#include <Arduino.h>
 #include <config.h>
-#include <vector>
 
 void linePrinter(unsigned long now, int line){
   switch(line){
     case 0:
     {
-      Serial.print("|/|=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=|/|");
+      
+      Serial.print("|/|N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=|/|");
       Serial.println();
       Serial.print("|/| ");
       Serial.print("V0.0.8");
@@ -34,13 +33,13 @@ void linePrinter(unsigned long now, int line){
       if(mode == "Doser"){
         if(phase == "Watching"){
           Serial.print("SetterCD: ");
-          elapsed = millis() - setterTimer;
+          elapsed = millis() - lastSetterTime;
           remaining = (elapsed < setterCD) ? (setterCD - elapsed) : 0;
         }
         if(phase == "Lowering"){
-          Serial.print("PumperCD: ");
-          elapsed = millis() - pumperTimer;
-          remaining = (elapsed < pumperCD) ? (pumperCD - elapsed) : 0;
+          Serial.print("pumpCD: ");
+          elapsed = millis() - lastPumpTime;
+          remaining = (elapsed < pumpCD) ? (pumpCD - elapsed) : 0;
         }
       }
       else if(mode == "Calibrator"){
@@ -50,7 +49,7 @@ void linePrinter(unsigned long now, int line){
       Serial.print(" | ");
       if(mode == "Doser"){
         Serial.print("PumpTime: ");
-        printPadded(pumpDesRuntime, 4);
+        printPadded(currentPumpTiming, 4);
         Serial.print("(ms)");
         Serial.print("          |/| ");
       }
@@ -69,7 +68,7 @@ void linePrinter(unsigned long now, int line){
     case 2:
     {
       for(int i = 0; i < diffPHVals; i++){
-          int sample = clusteredArray[i];
+          int sample = clusteredSamplesArray[i];
           
           Serial.print("|/|");
           
@@ -122,62 +121,26 @@ void linePrinter(unsigned long now, int line){
     break;
     case 600:
     {
-      Serial.print("|/|=MEDADC==SAMPLES==MEDMEDADC==SAMPLES=====================|/|");
-      Serial.println();
-    }
-    break;
-    case 601:
-    {
-      int columnWidth = 6; // Adjust this to fit your largest numbers
-      for(int i = 0; i < ADCSize; i++){
-        bool fake = true;
-        if(ADCValues[i] != 0) {
-          Serial.print("|/| ");
-          printPadded(ADCValues[i], columnWidth);
-          Serial.print(" | ");
-          printPadded(ADCOccurrences[i], columnWidth);
-          for (int k = 0; k < ADCSize; k++){
-            if(medMedVals[k] != 0){
-              if(medMedVals[k] == ADCValues[i]){
-                Serial.print(" | ");
-                printPadded(medMedVals[k], columnWidth);
-                Serial.print(" |   ");
-                printPadded(medMedOcc[k], columnWidth);
-                fake = false;
-              }
-            }
-          }
-          if(fake == true){
-            Serial.print(" | ");
-            printPadded(ADCValues[i], columnWidth);
-            Serial.print(" |   ");
-            Serial.print("0 (x) ");
-            fake = false;
-          }
-          Serial.println(" |/|");
-        }
-      }
-    }
-    break;
-    case 602:
-    {
       Serial.print("|/|=========================================================|/|");
       Serial.println(); 
       Serial.print("|/| ");
-      Serial.print("STDDev: ");
-      printFixedFloat(medMedianSTD, 2, 4);
+      Serial.print("stdDevOfADC: ");
+      printFixedFloat(stdDevOfADC, 2, 4);
+      Serial.print("stdDevOfTrim: ");
+      printFixedFloat(stdDevOfTrim, 2, 4);
       Serial.print(" | ");
-      Serial.print("trimMeanMedi: ");
-      printFixedFloat(medMedMed, 2, 6);
-      // Serial.print("trimMean: ");
-      // printFixedFloat(trimMean, 2, 6);     
+      Serial.print("trimOfTrim: ");
+      printFixedFloat(trimOfTrim, 2, 6);
+      Serial.print(" | ");
+      Serial.print("mediOfTrim: ");
+      printFixedFloat(mediOfTrim, 2, 6);     
       Serial.print(" | ");
       Serial.print("(");
-      printPadded(trimMeanarrayIndex, 3);
+      printPadded(trimMeanArrayIndex, 3);
       Serial.print("/");
-      Serial.print(trimArrSize);
+      Serial.print(trimMeanArrSize);
       Serial.print(")");
-      if (EnoughMedMedVals == true) {
+      if (enoughSamples == true) {
           printPaddedText("(READY)", 5);
         } else {
           printPaddedText("(WAIT)", 7);
@@ -186,7 +149,26 @@ void linePrinter(unsigned long now, int line){
       Serial.println();
     }
     break;
-    case 603:
+    case 601:
+    {
+      unsigned long elapsed = millis() - lastTitTime;
+      unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
+      Serial.print("|/|=========================================================|/|");
+      Serial.println(); 
+      Serial.print("|/| ");
+      Serial.print("titTime(ms): ");
+      printPadded(currentPumpTiming, 4);
+      Serial.print(" | ");
+      Serial.print("TitCD: ");
+      printPadded((remaining/1000), 4);
+      Serial.print(" | ");
+      Serial.print("totalTitTime: ");
+      printPadded(pumpTotalONTime, 7);
+      Serial.print(" |/|");
+      Serial.println();
+    }
+    break;
+    case 602:
     {
       Serial.print("|/|==PH======CLUSTERCENTER===STDDEV=========================|/|");
       Serial.println(); 
@@ -194,33 +176,40 @@ void linePrinter(unsigned long now, int line){
       for (size_t i = 0; i < diffPHVals; i++) {
         Serial.print("|/| ");
         printFixedFloat(phValues[i], 2, colWidth);
-        Serial.print(" |     ");
-        printFixedFloat(pHCallibrationArr[i], 2, colWidth);
-        Serial.print("     | ");
-        printFixedFloat(stdDevArr[i], 2, colWidth);
+        Serial.print(" | ");
+        printFixedFloat(clusterCenters[i], 6, colWidth);
         Serial.println(" |/|");
       }
+
     }
     break;
-    case 604:
+    case 603: /////print all values
     {
-      unsigned long elapsed = millis() - titterTimer;
-      unsigned long remaining = (elapsed < titterCD) ? (titterCD - elapsed) : 0;
       Serial.print("|/|=========================================================|/|");
       Serial.println(); 
       Serial.print("|/| ");
-      Serial.print("titTime(ms): ");
-      printPadded(titTime, 4);
+      Serial.print("medianTrimCluster: ");
+      printPadded(medianOfTrimCluster, 4);
       Serial.print(" | ");
-      Serial.print("TitCD: ");
-      printPadded((remaining/1000), 4);
-      Serial.print(" | ");
-      Serial.print("totalTitTime: ");
-      printPadded(totalTitTime, 7);
-      Serial.print(" |/|");
+      Serial.print("trimTrimCluster: ");
+      printPadded(trimOfTrimCluster, 4);
       Serial.println();
+
+      Serial.print("|/|==ADC==sample==prevCenter==pH=====================|/|");
+      Serial.println(); 
+      for (size_t i = 0; i < diffADCVals; i++) {
+        Serial.print("|/| ");
+        printPadded(clusteredSamplesArray[i], 6);
+        Serial.print(" | ");
+        printPadded(clusteredSamplesCompArray[i], 6);
+        Serial.print(" | ");
+        printPadded(clusterCenters[i], 6);
+        Serial.print(" | ");
+        printPadded(phValues[i], 6);
+        Serial.println(" |/|");
+      }
     }
-    break;
+    break; 
     case 607:
     {
       // int helpLineIndex = 0;

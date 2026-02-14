@@ -1,0 +1,153 @@
+INSTRUCTIONS:
+
+
+
+reading of pH7 buffer == STDDev: 0.91 | trimMeanMedi: 617.00                            |
+Values are high bounds. Though, buffer7 seems to be toward low bound.                   |
+Pump delivers about 10-11mL pr 10sec                                                    |
+                                                                                        |
+                                                                                        |
+TitProcess:                                                                             |
+    Get tap water                                                                       |
+    Measure pH with other meter                                                         |
+    Titrate slowly until the other meter stabilizes at the next value                   |
+    "log" -> "prev" to reset totalTitTime                                               |
+    slowly titrate through the current pH value.                                        |
+    Once stable at next .1 increment for 3-5 min, take note of the used titSolAmmount   |
+    Reset once more and start titration at desired startPH                              |
+    "log" once pH stable at selected increment (std 1-1.5).                             |
+                                                                                        |
+                                                                                        |
+                                                                                        |
+Blabber:                                                                                |
+    titTimes above 100ms are to be preffered, as the volume seems more consistent that  |
+    this level.                                                                         |
+    below 50 appears to not produce any fluid. only use 40-50 if really really really   |
+    really really small ammounts                                                        |
+        totalTitTime to Volume should not be trusted at low ms/doses. Use times above   |
+         50ms for more than a drop.                                                     |
+        minTitTime for a 6v pump run a 5v1a psu should be run for atleast 100ms per     |
+         titPump for consistent dosing                                                  |
+                                                                                        |
+    1L tap water, 50-100mL diluted acid.                                                |
+    current acid dil = 200g citric acid granulate -> 1 liter acid. 14 mL (-ish) acid    |
+     into 400mL water == dil acid                                                       |
+    currently using 450-500ms pumptimes to move pH .1 increment                         |
+             // scratch that, moved up to 1850ms-2200ms once at pH 6.2                  |
+    Really be sure to let the ref meter sit and mull over the correct value, and        |
+    remember to stir the watera bit to get it mixed properly                            |
+    stdDeviations around 1-1.25 or lower is preffered                                   |
+                                                                                        |
+    see if you can  find a titTime where you alter trimMeanMedi ADC by 1 per X.         |
+                                                                                        |
+    Be mindfull that the probes might interfere with one anothers readings if too close.|
+     Use a properly sized container.                                                    |
+                                                                                        |
+    Personal observation, you can generally titrate another time once you see your      |
+     ref Meter jump up .1, since it tends to calibrate upwards after stirring. Yours may|
+    differ, be curious.                                                                 |
+    Another thing, mine seems to briefly blink to the increment one further down than   |
+     the one where it settles after having stirred it when getting close to the bound.  |
+        stirring at a bound seems to also trigger the lower than settling val           |
+                                                                                        |
+    respect the titCD before logging, your value might change! :O                       |
+                                                                                        |
+    THIS DOES NOT TAKE INTO CONSIDERATION:                                              |
+        temps, other than what your module/sensorm might have on it.                    |
+                                                                                        |
+    2 hours between every watering, 20 possibiblites for pumpRunning                    |
+                                                                                        |
+                                                                                        |
+24 hours after first test in prod:                                                      |
+   It appears that there are some inconsistencies, how many code related i dont know yet|
+    starting test at 1240, tablepump set to go on in 20 min                             |
+        CurrentPH = 5.6 on Probe,  on refMeter = 6.0                                    |
+    testing again after flood                                                           |
+        CurrentPH = 6.6-6.7 on Probe,  on refMeter = 5.9-6.0                            |
+                                                                                        |
+    test 2 taking water from res into sepereate container and measuring                 |
+        CurrentPH = 5.6 on Probe,  on refMeter = 6.0                                    |
+                                                                                        |
+                                                                                        |
+Program Execution/Sanity check:
+
+         _-- <- - <- - <- - <- - <- - <- - <- - <- - <- - <--_              
+        |                                                    /
+        v                       stop()        Linepicker()  /
+        |               start()  /                |        /
+     Iterator()             \   /              Printer()  /      
+        |                    \ /     Commander()/        /         
+        v                     |  Reader()/     /        /         Todoos! pHLog/record 24 hours /decide over severl ph values/sensor update time test/show voltage/autotitratro(cam/ml)/sdcard for data&logging / error handling / testsuite / usage counter for doser
+        |                   Pumper()/   /     /        /                   settingsFileSDcard / implement matrix pH values / dose if truePH value jumps 2.5pH inc
+        v      PhaseHandler()/     /   /     /        /     
+        |          /        /     /   /     /        /     
+Setup() -> Loop(){} -> - -> - -> - -> - -> - -> - --/
+                                       |                        
+                                      / \
+                                     /   \_ _ _ _ _ _ _ _ _ _   
+                                    /                        \
+                             Calibrator(){} ----||or||----- Doser(){} 
+                                  /                           |
+                              sensor()                      Sensor()     
+                                /                             |
+                           TrimMean()                      TrimMean() 
+                              /                               |
+                        TrimMeanStd()                    TrimMeanStd()   
+                            /                                 |
+                      TrimMean()              TrimMeanMedian v.s TrimMeanTrimmed?()???? 
+                                                              |
+                                                         Clustering() 
+                                                              |
+                                                           pHGetter() 
+                                                              |
+                                                          pHSetter()  
+                                                              
+                                                            
+                                                                             
+
+
+//Variables
+
+Setup{
+    Digipin
+    Baud
+}
+
+loop{
+}
+
+phaseHandler{
+    mode
+    phase
+}
+
+pumper{
+    ReadyForPumping
+}
+start{pumperTimer
+      pumpRunning}
+stop{pumperTimer
+     pumpRunning}
+
+reader{incCommand}
+commander{incCommand}
+
+doser{math{ADCArray????
+    trimMean?
+    trimMeanArr?
+    trimMeanStd?
+    trimMeanMedi?
+    trimMeanMediArr?
+    Clustering????
+    }}
+collectData{ADCArray/ind}????????
+
+clusering{
+    size
+    clusterCenters
+    trimMeanMediArr}
+    clusteredArray
+
+pHGetter{
+
+}
