@@ -177,17 +177,19 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|==ADC==sample==prevCenter==pH=====================|/|");
     Serial.println();
     for (size_t i = 0; i < calibValArrSize; i++) {
-      Serial.print("|/| ");
-      printPadded(calibValueArr[i], 6);
-      Serial.print(" | ");
-      printPadded(calibOccurArr[i], 6);
-      Serial.print(" | ");
-      if (i < diffPHVals) {
-        printPadded(clusterCenters[i], 6);
-      }
-      Serial.print(" | ");
-      if (i < diffPHVals) {
-        printFixedFloat(phValues[i], 2, 6);
+      if(calibValueArr[i] != 0){
+        Serial.print("|/| ");
+        printPadded(calibValueArr[i], 6);
+        Serial.print(" | ");
+        printPadded(calibOccurArr[i], 6);
+        Serial.print(" | ");
+        if (i < diffPHVals) {
+          printPadded(clusterCenters[i], 6);
+        }
+        Serial.print(" | ");
+        if (i < diffPHVals) {
+          printFixedFloat(phValues[i], 2, 6);
+        }
       }
       Serial.println(" |/|");
     }
