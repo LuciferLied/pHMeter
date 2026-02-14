@@ -19,7 +19,7 @@ void loop() {
       if (mode == "Doser") {
         doser(now);
       } else if (mode == "Calibrator") {
-        calibrator(now);
+        calibrator2(now);
       }
       sampleDecay(now);
     }

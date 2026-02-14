@@ -36,6 +36,7 @@ void printPaddedText(const char* text, int width);
 void printPaddedString(String text, int width);
 //////printer//////printer//////printer//////printer
 //////calibrator//////calibrator//////calibrator//////
+void calibrator2(unsigned long now);
 void resetter();
-void getADCSamples(int values[], int occurrences[], int size, int &usedSpace)
+void getADCSamples(int values[], int occurrences[], int size, int &usedSpace);
 
