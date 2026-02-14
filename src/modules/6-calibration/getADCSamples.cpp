@@ -29,7 +29,7 @@ void getADCSamples(int values[], int occurrences[], int size, int &usedSpace) {
       }
       if (exists == false) {
         values[sammpleIndex] = analDiCoArr[i];
-        occurrences[diffADCVals] = 1;
+        occurrences[sammpleIndex]++;
         sammpleIndex++;
       }
     }

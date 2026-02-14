@@ -174,7 +174,7 @@ void linePrinter(unsigned long now, int line) {
     printPadded(trimOfTrimCluster, 4);
     Serial.println();
 
-    Serial.print("|/|==ADC==samples==filter=====================|/|");
+    Serial.print("|/|==ADC==samples==filt>100=====================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
         Serial.print("|/| ");
@@ -182,13 +182,8 @@ void linePrinter(unsigned long now, int line) {
         Serial.print(" | ");
         printPadded(calibOccurArr[i], 6);
         Serial.print(" | ");
-        if (i < diffPHVals) {
-          printPadded(clusterCenters[i], 6);
-        }
+        printPadded(calibOccurArrClean1[i], 6);
         Serial.print(" | ");
-        if (i < diffPHVals) {
-          printFixedFloat(phValues[i], 2, 6);
-        }
         Serial.println(" |/|");
     }
   } break;
