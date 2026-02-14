@@ -8,7 +8,7 @@ void calibrator2(unsigned long now) {
   int usedSpace = 0;
   getADCSamples(calibValueArr, calibOccurArr, 100, usedSpace);
 
-  sortData(calibValueArr, calibOccurArr, usedSpace);
+  sortData(calibValueArr, calibOccurArr, 100);
   trimMeanArray[trimMeanArrayIndex] = trimmedMean(analDiCoArr, analDiCoArrSize, trimPercADCCalib);
   trimMeanArrayIndex++;
   if (trimMeanArrayIndex == trimMeanArrSize || enoughSamples == true) {
