@@ -1,239 +1,215 @@
 #include <config.h>
 
-void linePrinter(unsigned long now, int line){
-  switch(line){
-    case 0:
-    {
-      
-      Serial.print("|/|N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=|/|");
-      Serial.println();
-      Serial.print("|/| ");
-      Serial.print("V0.0.8");
-      Serial.print(" | ");      
-      Serial.print("prntNr: ");
-      printPadded(printIteration, 4);
-      Serial.print(" | ");
-      Serial.print("Mode: ");
-      Serial.print (mode);
-      Serial.print(" | ");
-      Serial.print("phase: ");
-      printPaddedString(phase, 10);
-      Serial.print(" |/|");
-      Serial.println();
+void linePrinter(unsigned long now, int line) {
+  switch (line) {
+  case 0: {
 
-      unsigned long elapsed = 0;
-      unsigned long remaining = 0;
-      Serial.print("|/|---------------------------------------------------------|/|");
-      //Serial.print("|/|=========================================================|/|");
-      Serial.println();
-      Serial.print("|/| ");
-      Serial.print("PH: ");
-      Serial.print (currentPH);
-      Serial.print(" | ");
-      if(mode == "Doser"){
-        if(phase == "Watching"){
-          Serial.print("SetterCD: ");
-          elapsed = millis() - lastSetterTime;
-          remaining = (elapsed < setterCD) ? (setterCD - elapsed) : 0;
-        }
-        if(phase == "Lowering"){
-          Serial.print("pumpCD: ");
-          elapsed = millis() - lastPumpTime;
-          remaining = (elapsed < pumpCD) ? (pumpCD - elapsed) : 0;
-        }
-      }
-      else if(mode == "Calibrator"){
-        
-      }
-      printPadded((remaining/1000), 4);
-      Serial.print(" | ");
-      if(mode == "Doser"){
-        Serial.print("PumpTime: ");
-        printPadded(currentPumpTiming, 4);
-        Serial.print("(ms)");
-        Serial.print("          |/| ");
-      }
-      else if(mode == "Calibrator"){
-        
-      }
-      Serial.println();
-    }
-    break;
-    case 1:
-    {
-      Serial.print("|/|===PH===ClUSTER==SAMPLES=================================|/|");
-      Serial.println();
-    }
-    break;
-    case 2:
-    {
-      for(int i = 0; i < diffPHVals; i++){
-          int sample = clusteredSamplesArray[i];
-          
-          Serial.print("|/|");
-          
-          if(currentPH == phValues[i]){
-            // Active Row: Uses arrows
-            Serial.print("->");
-            Serial.print(phValues[i]);
-            Serial.print("<-|->");
-            Serial.print(clusterCenters[i]);
-            Serial.print("<-|->");
-            
-            // Fixed-width Sample Container (Width of 5)
-            int chars = Serial.print(sample);
-            Serial.print("<-");
-            for (int s = 0; s < (5 - chars); s++) Serial.print(" "); 
-          }
-          else{
-            // Normal Row: Uses spaces to match the arrows exactly
-            Serial.print("  "); // Matches "->"
-            Serial.print(phValues[i]);
-            Serial.print("  |  "); // Matches "<-|->" (5 chars)
-            Serial.print(clusterCenters[i]);
-            Serial.print("  |  "); // Matches "<-|->" (5 chars)
-            
-            // Fixed-width Sample Container (Width of 5)
-            int chars = Serial.print(sample);
-            for (int s = 0; s < (5 - chars); s++) Serial.print(" ");
-            
-            Serial.print("  "); // Matches "<-"
-          }
+    Serial.print("|/|N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("V0.0.8");
+    Serial.print(" | ");
+    Serial.print("prntNr: ");
+    printPadded(printIteration, 4);
+    Serial.print(" | ");
+    Serial.print("Mode: ");
+    Serial.print(mode);
+    Serial.print(" | ");
+    Serial.print("phase: ");
+    printPaddedString(phase, 10);
+    Serial.print(" |/|");
+    Serial.println();
 
-          Serial.println("|/|"); 
+    unsigned long elapsed = 0;
+    unsigned long remaining = 0;
+    Serial.print("|/|---------------------------------------------------------|/|");
+    // Serial.print("|/|=========================================================|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("PH: ");
+    Serial.print(currentPH);
+    Serial.print(" | ");
+    if (mode == "Doser") {
+      if (phase == "Watching") {
+        Serial.print("SetterCD: ");
+        elapsed = millis() - lastSetterTime;
+        remaining = (elapsed < setterCD) ? (setterCD - elapsed) : 0;
       }
+      if (phase == "Lowering") {
+        Serial.print("pumpCD: ");
+        elapsed = millis() - lastPumpTime;
+        remaining = (elapsed < pumpCD) ? (pumpCD - elapsed) : 0;
+      }
+    } else if (mode == "Calibrator") {
     }
-    break;
-    case 4:
-    {
-
-    }
-    break;
-    case 5:
-    {
-
-    }
-    break;
-    case 6:
-    {
-
-    }
-    break;
-    case 600:
-    {
-      Serial.print("|/|=========================================================|/|");
-      Serial.println(); 
-      Serial.print("|/| ");
-      Serial.print("stdDevOfADC: ");
-      printFixedFloat(stdDevOfADC, 2, 4);
-      Serial.print("stdDevOfTrim: ");
-      printFixedFloat(stdDevOfTrim, 2, 4);
-      Serial.print(" | ");
-      Serial.print("trimOfTrim: ");
-      printFixedFloat(trimOfTrim, 2, 6);
-      Serial.print(" | ");
-      Serial.print("mediOfTrim: ");
-      printFixedFloat(mediOfTrim, 2, 6);     
-      Serial.print(" | ");
-      Serial.print("(");
-      printPadded(trimMeanArrayIndex, 3);
-      Serial.print("/");
-      Serial.print(trimMeanArrSize);
-      Serial.print(")");
-      if (enoughSamples == true) {
-          printPaddedText("(READY)", 5);
-        } else {
-          printPaddedText("(WAIT)", 7);
-        }
-      Serial.print(" |/|");
-      Serial.println();
-    }
-    break;
-    case 601:
-    {
-      unsigned long elapsed = millis() - lastTitTime;
-      unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
-      Serial.print("|/|=========================================================|/|");
-      Serial.println(); 
-      Serial.print("|/| ");
-      Serial.print("titTime(ms): ");
+    printPadded((remaining / 1000), 4);
+    Serial.print(" | ");
+    if (mode == "Doser") {
+      Serial.print("PumpTime: ");
       printPadded(currentPumpTiming, 4);
-      Serial.print(" | ");
-      Serial.print("TitCD: ");
-      printPadded((remaining/1000), 4);
-      Serial.print(" | ");
-      Serial.print("totalTitTime: ");
-      printPadded(pumpTotalONTime, 7);
-      Serial.print(" |/|");
-      Serial.println();
+      Serial.print("(ms)");
+      Serial.print("          |/| ");
+    } else if (mode == "Calibrator") {
     }
-    break;
-    case 602:
-    {
-      Serial.print("|/|==PH======CLUSTERCENTER===STDDEV=========================|/|");
-      Serial.println(); 
-      int colWidth = 6;
-      for (size_t i = 0; i < diffPHVals; i++) {
-        Serial.print("|/| ");
-        printFixedFloat(phValues[i], 2, colWidth);
-        Serial.print(" | ");
-        printFixedFloat(clusterCenters[i], 6, colWidth);
-        Serial.println(" |/|");
+    Serial.println();
+  } break;
+  case 1: {
+    Serial.print("|/|===PH===ClUSTER==SAMPLES=================================|/|");
+    Serial.println();
+  } break;
+  case 2: {
+    for (int i = 0; i < diffPHVals; i++) {
+      int sample = clusteredSamplesArray[i];
+
+      Serial.print("|/|");
+
+      if (currentPH == phValues[i]) {
+        // Active Row: Uses arrows
+        Serial.print("->");
+        Serial.print(phValues[i]);
+        Serial.print("<-|->");
+        Serial.print(clusterCenters[i]);
+        Serial.print("<-|->");
+
+        // Fixed-width Sample Container (Width of 5)
+        int chars = Serial.print(sample);
+        Serial.print("<-");
+        for (int s = 0; s < (5 - chars); s++)
+          Serial.print(" ");
+      } else {
+        // Normal Row: Uses spaces to match the arrows exactly
+        Serial.print("  "); // Matches "->"
+        Serial.print(phValues[i]);
+        Serial.print("  |  "); // Matches "<-|->" (5 chars)
+        Serial.print(clusterCenters[i]);
+        Serial.print("  |  "); // Matches "<-|->" (5 chars)
+
+        // Fixed-width Sample Container (Width of 5)
+        int chars = Serial.print(sample);
+        for (int s = 0; s < (5 - chars); s++)
+          Serial.print(" ");
+
+        Serial.print("  "); // Matches "<-"
       }
 
+      Serial.println("|/|");
     }
-    break;
-    case 603: /////print all values
-    {
-      Serial.print("|/|=========================================================|/|");
-      Serial.println(); 
+  } break;
+  case 4: {
+
+  } break;
+  case 5: {
+
+  } break;
+  case 6: {
+
+  } break;
+  case 600: {
+    Serial.print("|/|=========================================================|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("stdDevOfADC: ");
+    printFixedFloat(stdDevOfADC, 2, 4);
+    Serial.print("stdDevOfTrim: ");
+    printFixedFloat(stdDevOfTrim, 2, 4);
+    Serial.print(" | ");
+    Serial.print("trimOfTrim: ");
+    printFixedFloat(trimOfTrim, 2, 6);
+    Serial.print(" | ");
+    Serial.print("mediOfTrim: ");
+    printFixedFloat(mediOfTrim, 2, 6);
+    Serial.print(" | ");
+    Serial.print("(");
+    printPadded(trimMeanArrayIndex, 3);
+    Serial.print("/");
+    Serial.print(trimMeanArrSize);
+    Serial.print(")");
+    if (enoughSamples == true) {
+      printPaddedText("(READY)", 5);
+    } else {
+      printPaddedText("(WAIT)", 7);
+    }
+    Serial.print(" |/|");
+    Serial.println();
+  } break;
+  case 601: {
+    unsigned long elapsed = millis() - lastTitTime;
+    unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
+    Serial.print("|/|=========================================================|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("titTime(ms): ");
+    printPadded(currentPumpTiming, 4);
+    Serial.print(" | ");
+    Serial.print("TitCD: ");
+    printPadded((remaining / 1000), 4);
+    Serial.print(" | ");
+    Serial.print("totalTitTime: ");
+    printPadded(pumpTotalONTime, 7);
+    Serial.print(" |/|");
+    Serial.println();
+  } break;
+  case 602: {
+    Serial.print("|/|==PH======CLUSTERCENTER===STDDEV=========================|/|");
+    Serial.println();
+    int colWidth = 6;
+    for (size_t i = 0; i < diffPHVals; i++) {
       Serial.print("|/| ");
-      Serial.print("medianTrimCluster: ");
-      printPadded(medianOfTrimCluster, 4);
+      printFixedFloat(phValues[i], 2, colWidth);
       Serial.print(" | ");
-      Serial.print("trimTrimCluster: ");
-      printPadded(trimOfTrimCluster, 4);
-      Serial.println();
+      printFixedFloat(clusterCenters[i], 6, colWidth);
+      Serial.println(" |/|");
+    }
 
-      Serial.print("|/|==ADC==sample==prevCenter==pH=====================|/|");
-      Serial.println(); 
-      for (size_t i = 0; i < diffADCVals; i++) {
-        Serial.print("|/| ");
-        printPadded(calibValueArr[i], 6);
-        Serial.print(" | ");
-        printPadded(calibOccurArr[i], 6);
-        Serial.print(" | ");
+  } break;
+  case 603: /////print all values
+  {
+    Serial.print("|/|=========================================================|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("medianTrimCluster: ");
+    printPadded(medianOfTrimCluster, 4);
+    Serial.print(" | ");
+    Serial.print("trimTrimCluster: ");
+    printPadded(trimOfTrimCluster, 4);
+    Serial.println();
+
+    Serial.print("|/|==ADC==sample==prevCenter==pH=====================|/|");
+    Serial.println();
+    for (size_t i = 0; i < calibValArrSize; i++) {
+      Serial.print("|/| ");
+      printPadded(calibValueArr[i], 6);
+      Serial.print(" | ");
+      printPadded(calibOccurArr[i], 6);
+      Serial.print(" | ");
+      if (i < diffPHVals) {
         printPadded(clusterCenters[i], 6);
-        Serial.print(" | ");
-        printFixedFloat(phValues[i],2,6);
-        Serial.println(" |/|");
       }
+      Serial.print(" | ");
+      if (i < diffPHVals) {
+        printFixedFloat(phValues[i], 2, 6);
+      }
+      Serial.println(" |/|");
     }
-    break; 
-    case 607:
-    {
-      // int helpLineIndex = 0;
-      // switch (helpLineIndex)
-      // {
-      // case constant expression:
-      //   /* code */
-      //   break;
-      
-      // default:
-      //   break;
-      // }
-    }
-    break;
-    case 999:
-    {
-      Serial.print("|/|==========================END============================|/|");
-      Serial.println();
-    }
-    break;
-    default:
-    {
+  } break;
+  case 607: {
+    // int helpLineIndex = 0;
+    // switch (helpLineIndex)
+    // {
+    // case constant expression:
+    //   /* code */
+    //   break;
 
-    }
-    break;
+    // default:
+    //   break;
+    // }
+  } break;
+  case 999: {
+    Serial.print("|/|==========================END============================|/|");
+    Serial.println();
+  } break;
+  default: {
+
+  } break;
   }
 }

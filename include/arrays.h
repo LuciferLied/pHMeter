@@ -22,6 +22,7 @@ inline int rollingPHArrIndex = 0;
 //////calibrator//////calibrator//////calibrator//////
 inline float stdDevArr[diffPHVals];
 
-inline int calibValueArr[100];
-inline int calibOccurArr[100];
+inline const int calibValArrSize = 100;
+inline int calibValueArr[calibValArrSize];
+inline int calibOccurArr[calibValArrSize];
 //////calibrator//////calibrator//////calibrator//////
