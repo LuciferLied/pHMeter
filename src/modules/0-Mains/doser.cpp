@@ -8,11 +8,7 @@ void doser(unsigned long now) {
   pHSetter(now, phase, rollingPH, lastSetterTime, setterCD, runPump, currentPumpTiming,
            pumpTimingOptionsArr);
 
-  //pHSetter(now, phase, currentPH, lastSetterTime, setterCD, runPump, currentPumpTiming,
-           //pumpTimingOptionsArr);
+  // pHSetter(now, phase, currentPH, lastSetterTime, setterCD, runPump, currentPumpTiming,
+  // pumpTimingOptionsArr);
   return;
 }
-
-
-
-/////implement RollingPHAVGArray
