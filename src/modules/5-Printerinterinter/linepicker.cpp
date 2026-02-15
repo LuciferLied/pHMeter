@@ -174,6 +174,11 @@ void linePrinter(unsigned long now, int line) {
     printPadded(CalibOccTrim, 4);
     Serial.println();
 
+
+    largeWindow = highestOcc*0.20;
+    medWindow = highestOcc*0.36;
+    smallWindow = highestOcc*0.60;
+
     Serial.print("|/|=ADC==samples=medWin=smlWin=ADC===========|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
