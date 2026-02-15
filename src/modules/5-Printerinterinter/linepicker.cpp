@@ -208,7 +208,7 @@ void linePrinter(unsigned long now, int line) {
         continue;
       }
       Serial.print("|/| ");
-      printPadded(calibValueArr[i], colWidth);
+      printPadded(calibValueArr[i], colWidth-2);
       Serial.print(" | ");
       printPadded(calibOccurArr[i], colWidth);
       Serial.print(" | ");
@@ -237,9 +237,9 @@ void linePrinter(unsigned long now, int line) {
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > smallWindow) {
-        printPadded(calibValueArr[i], colWidth);
+        printPadded(calibValueArr[i], colWidth-2);
       } else {
-        for (int k = 0; k < colWidth; k++) {
+        for (int k = 0; k < colWidth-2; k++) {
           Serial.print("#");
         }
       }
