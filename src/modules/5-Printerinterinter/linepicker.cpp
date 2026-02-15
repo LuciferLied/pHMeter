@@ -149,7 +149,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("totalTitTime: ");
     printPadded(pumpTotalONTime, 7);
-    Serial.print("            |/|");
+    Serial.print("                |/|");
     Serial.println();
   } break;
   case 602: {
@@ -197,7 +197,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("SmolWin: ");
     printPadded(smallWindowMult * 100, 2);
     Serial.print("%");
-    Serial.print("          |/|");
+    Serial.print("             |/|");
     Serial.println();
 
     int colWidth = 5;
