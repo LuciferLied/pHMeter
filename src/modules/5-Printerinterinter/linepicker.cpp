@@ -7,7 +7,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=|/|");
     Serial.println();
     Serial.print("|/| ");
-    Serial.print("V0.0.8");
+    Serial.print("V0.0.9");
     Serial.print(" | ");
     Serial.print("prntNr: ");
     printPadded(printIteration, 4);
@@ -41,6 +41,9 @@ void linePrinter(unsigned long now, int line) {
         remaining = (elapsed < pumpCD) ? (pumpCD - elapsed) : 0;
       }
     } else if (mode == "Calibrator") {
+        Serial.print("titCD: ");
+        elapsed = millis() - lastTitTime;
+        remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
     }
     printPadded((remaining / 1000), 4);
     Serial.print(" | ");
@@ -167,11 +170,13 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|========================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
+    Serial.print("CalibOccSTDDev: ");
+    printFixedFloat(CalibOccSTDDev,2,6);
     Serial.print("CalibOccMedi: ");
-    printPadded(CalibOccMedi, 4);
+    printFixedFloat(CalibOccMedi,2,6);
     Serial.print(" | ");
     Serial.print("CalibOccTrim: ");
-    printPadded(CalibOccTrim, 4);
+    printFixedFloat(CalibOccTrim,2,6);
     Serial.println();
 
 
