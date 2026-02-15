@@ -210,17 +210,17 @@ void linePrinter(unsigned long now, int line) {
 
     int colWidth = 5;
     Serial.print(
-        "|/|==ADC=SAMPLES==LRGWIN==MEDWIN==SMLWIN===KEY==========LOCKARRAY======PH=================|/|");
+        "|/|ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN==KEY===========LOCKARRAY===========PH=============|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
         continue;
       }
       if (i == keyStart || i == keyEnd + 1) {
-        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=|/"
+        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=|/"
                        "|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|/|");
       }
-      Serial.print("|/| ");
+      Serial.print("|/|");
       printPadded(calibValueArr[i], colWidth - 2);
       Serial.print(" | ");
       printPadded(calibOccurArr[i], colWidth);
@@ -250,14 +250,14 @@ void linePrinter(unsigned long now, int line) {
       }
       Serial.print(" | ");
       if (calibOccurArr[i] >= smallWindow) {
-        printPadded(calibValueArr[i], colWidth - 2);
+        printPadded(calibValueArr[i], colWidth - 3);
       } else {
         for (int k = 0; k < colWidth - 2; k++) {
           Serial.print("#");
         }
       }
       if (calibOccurArr[i] >= smallWindow) {
-        Serial.print("====>");
+        Serial.print("===>");
       } else {
         Serial.print("");
       }
@@ -285,7 +285,7 @@ void linePrinter(unsigned long now, int line) {
       }
       if (calibOccurArr[i] < smallWindow) {
         int holderpHValueIndex = pHValuesIndex;
-        Serial.print(" |/| ");
+        Serial.print("|/|");
         if (i < keyStart) {
           if (holderpHValueIndex == 0) {
             holderpHValueIndex = 21 - (keyStart - i);
@@ -335,7 +335,7 @@ void linePrinter(unsigned long now, int line) {
         }
         Serial.print(" >>>");
         Serial.print(phValues[holderpHValueIndex]);
-        Serial.println("          |/|");
+        Serial.println("         |/|");
       }
     }
   } break;
