@@ -178,7 +178,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("CalibOccTrim: ");
     printFixedFloat(CalibOccTrim,2,6);
-    Serial.print("      |/|");
+    Serial.print("   |/|");
     Serial.println();
 
 
