@@ -13,4 +13,5 @@ void calibrator2(unsigned long now) {
   countSamples();
   setWindows();
   findKey();
+  largestKey();
 }
