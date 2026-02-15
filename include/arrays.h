@@ -45,4 +45,5 @@ inline int calibKeyBook[diffPHVals][maxKeys]= {0};
 inline int keyStart = 0;
 inline int keyEnd = 0;
 inline int currLargestKey = 0;
+void sortRow(int rowNumber, int array2D[diffPHVals][maxKeys]);
 //////calibrator//////calibrator//////calibrator//////

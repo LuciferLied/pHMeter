@@ -23,6 +23,17 @@ void commander(unsigned long now) {
     pumpTotalONTime = 0;
     pHValuesIndex++;
   }
+  if (incCommand == "key"){
+    for(int i = keyStart; i < keyEnd+1; i++ ){
+      for(int k = 0; k < maxKeys; k++){
+        if(calibKeyBook[pHValuesIndex][k] == 0){
+          calibKeyBook[pHValuesIndex][k] = calibValueArr[i];
+          break;
+        }
+      }
+    }
+    sortRow(pHValuesIndex, calibKeyBook);
+  }
   if (incCommand == "tittime") {
     resetter();
     runPump = true;
