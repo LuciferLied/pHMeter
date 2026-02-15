@@ -180,6 +180,7 @@ void linePrinter(unsigned long now, int line) {
       if (calibOccurArr[i] < largeWindow) {
         continue;
       }
+      Serial.println(highestOcc);
 
       Serial.print("|/| ");
       printPadded(calibValueArr[i], 4);
