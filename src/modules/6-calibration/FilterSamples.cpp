@@ -42,7 +42,7 @@ void findKey() {
   keyEnd = 0;
   int i = 0;
   for (i; i < calibValArrSize; i++) {
-    if (calibValueArr[i] >= smallWindow) {
+    if (calibOccurArr[i] >= smallWindow) {
       if (keyStart == 0) {
         keyStart = i;
       }
