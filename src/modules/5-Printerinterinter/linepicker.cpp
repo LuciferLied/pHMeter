@@ -198,7 +198,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
 
     int colWidth = 5;
-    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===============================|/|");
+    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY==========================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
