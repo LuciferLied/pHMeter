@@ -339,6 +339,7 @@ void linePrinter(unsigned long now, int line) {
               printedKeys++;
             }
           }
+          int f=0;
           Serial.print(">>>");
           Serial.print(phValues[holderpHValueIndex]);
           for (int k = printedKeys; k < maxKeys; k++) {
