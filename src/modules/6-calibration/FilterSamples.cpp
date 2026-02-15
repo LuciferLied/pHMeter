@@ -22,3 +22,9 @@ void syncShiftArrays(int values[], int occurrences[], int size) {
   // Update the global variable
   highestOcc = tempMax;
 }
+
+void setWindows(){
+    largeWindow = highestOcc * largeWindowMult;
+    mediumWindow = highestOcc * mediumWindowMult;
+    smallWindow = highestOcc * smallWindowMult;
+}

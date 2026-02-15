@@ -195,7 +195,7 @@ void linePrinter(unsigned long now, int line) {
       Serial.print(" | ");
       printPadded(calibOccurArr[i], 4);
       Serial.print(" | ");
-      if (calibOccurArr[i] > medWindow) {
+      if (calibOccurArr[i] > mediumWindow) {
         printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 4);
