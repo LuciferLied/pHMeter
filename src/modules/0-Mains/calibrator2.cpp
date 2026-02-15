@@ -15,6 +15,11 @@ void calibrator2(unsigned long now) {
   // smallWindow = highestOcc*0.60;
   largeWindow = 1;
   medWindow = 1;
-  smallWindow = 1;
-
+  smallWindow = 1; 
+  for (int i = 0; i < 100; i++)
+  {
+    Serial.println(calibValueArr[i]);
+    Serial.println(" - ");
+    Serial.println(calibOccurArr[i]); 
+  }
 }
