@@ -167,41 +167,41 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|=========================================================|/|");
     Serial.println();
     Serial.print("|/| ");
-    Serial.print("medianTrimCluster: ");
-    printPadded(medianOfTrimCluster, 4);
+    Serial.print("CalibOccMedi: ");
+    printPadded(CalibOccMedi, 4);
     Serial.print(" | ");
-    Serial.print("trimTrimCluster: ");
-    printPadded(trimOfTrimCluster, 4);
+    Serial.print("CalibOccTrim: ");
+    printPadded(CalibOccTrim, 4);
     Serial.println();
 
-    Serial.print("|/|==ADC==samples==filt>100=====================|/|");
+    Serial.print("|/|==ADC====samples==filt>100=====================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
       Serial.print("|/| ");
-      printPadded(calibValueArr[i], 6);
+      printPadded(calibValueArr[i], 4);
       Serial.print(" | ");
-      printPadded(calibOccurArr[i], 6);
+      printPadded(calibOccurArr[i], 4);
       Serial.print(" | ");
       if (calibOccurArr[i] > 100) {
-        printPadded(calibOccurArr[i], 6);
+        printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 6);
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > 1000) {
-        printPadded(calibOccurArr[i], 6);
+        printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 6);
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > 2000) {
-        printPadded(calibOccurArr[i], 6);
+      if (calibOccurArr[i] > 1500) {
+        printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 6);
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > 2000) {
-        printPadded(calibValueArr[i], 6);
+      if (calibOccurArr[i] > 1500) {
+        printPadded(calibValueArr[i], 4);
       } else {
         printPadded(0, 6);
       }

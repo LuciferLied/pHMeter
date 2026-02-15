@@ -40,3 +40,5 @@ void calibrator2(unsigned long now);
 void resetter();
 void getADCSamples(int values[], int occurrences[], int size, int &usedSpace);
 void syncShiftArrays(int values[], int counts[], int size);
+float calculateMedian(int values[], int occurrences[], int size);
+float calculateTrimmedMean(int values[], int occurrences[], int size, float trimPercent);

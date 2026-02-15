@@ -26,7 +26,7 @@ inline const int calibValArrSize = 100;
 inline int calibValueArr[calibValArrSize];
 inline int calibOccurArr[calibValArrSize];
 inline int calibOccurArrClean1[calibValArrSize];
-
-
+inline float CalibOccMedi = 0;
+inline float CalibOccTrim = 0;
 inline int usedSize = 0;
 //////calibrator//////calibrator//////calibrator//////
