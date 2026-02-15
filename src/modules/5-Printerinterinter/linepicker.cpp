@@ -208,7 +208,7 @@ void linePrinter(unsigned long now, int line) {
         continue;
       }
       Serial.print("|/| ");
-      printPadded(calibValueArr[i], colWidth-2);
+      printPadded(calibValueArr[i], colWidth - 2);
       Serial.print(" | ");
       printPadded(calibOccurArr[i], colWidth);
       Serial.print(" | ");
@@ -237,40 +237,54 @@ void linePrinter(unsigned long now, int line) {
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > smallWindow) {
-        printPadded(calibValueArr[i], colWidth-2);
+        printPadded(calibValueArr[i], colWidth - 2);
       } else {
-        for (int k = 0; k < colWidth-2; k++) {
+        for (int k = 0; k < colWidth - 2; k++) {
           Serial.print("#");
         }
       }
       if (calibOccurArr[i] > smallWindow) {
         Serial.print("->");
-      }
-      if (calibOccurArr[i] <= smallWindow) {
+      } else {
         Serial.print("[]");
       }
-
-      Serial.println(" |/|");
+      if (calibOccurArr[i] > smallWindow) {
+        int firstZero = 0;
+        for (int k = 0; k < maxKeys; k++) {
+          if (calibKeyBook[pHValuesIndex][k] != 0) {
+            Serial.print("{");
+            Serial.print(calibKeyBook[pHValuesIndex][k]);
+            Serial.print("},");
+          }
+        }
+        if (firstZero < 6) {
+          for (int k = 0; k < 6 - firstZero; k++) {
+            Serial.print("{0},");
+          }
+        }
+      }
     }
-  } break;
-  case 607: {
-    // int helpLineIndex = 0;
-    // switch (helpLineIndex)
-    // {
-    // case constant expression:
-    //   /* code */
-    //   break;
-
-    // default:
-    //   break;
-    // }
-  } break;
-  case 999: {
-    Serial.print("|/|=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E/|");
-    Serial.println();
-  } break;
-  default: {
-
-  } break;
+    Serial.println(" |/|");
   }
+  break;
+case 607: {
+  // int helpLineIndex = 0;
+  // switch (helpLineIndex)
+  // {
+  // case constant expression:
+  //   /* code */
+  //   break;
+
+  // default:
+  //   break;
+  // }
+} break;
+case 999: {
+  Serial.print("|/|=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E/|");
+  Serial.println();
+} break;
+default: {
+
+} break;
+}
 }

@@ -38,6 +38,7 @@ inline int largeWindow = 0;
 inline int mediumWindow = 0;
 inline int smallWindow = 0;
 inline int ammSamplesCollected = 0;
+inline const int maxKeys = 10;
 inline int CurrentKeys[]={0,0,0,0,0,0,0,0,0,0};
-inline int calibKeyBook[diffPHVals][10];
+inline int calibKeyBook[diffPHVals][maxKeys];
 //////calibrator//////calibrator//////calibrator//////
