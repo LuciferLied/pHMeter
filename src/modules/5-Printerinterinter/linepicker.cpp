@@ -201,7 +201,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
 
     int colWidth = 5;
-    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY==========================|/|");
+    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===LOCK===================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
@@ -243,6 +243,13 @@ void linePrinter(unsigned long now, int line) {
           Serial.print("#");
         }
       }
+      if (calibOccurArr[i] > smallWindow) {
+        Serial.println("->");
+      }
+      if (calibOccurArr[i] <= smallWindow) {
+        Serial.println("[]");
+      }
+
       Serial.println(" |/|");
     }
   } break;
@@ -259,7 +266,7 @@ void linePrinter(unsigned long now, int line) {
     // }
   } break;
   case 999: {
-    Serial.print("|/|==========================END===========================================|/|");
+    Serial.print("|/|=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E/|");
     Serial.println();
   } break;
   default: {
