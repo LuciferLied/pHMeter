@@ -16,11 +16,9 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(mode);
     Serial.print(" | ");
     Serial.print("phase: ");
-    for (int k = 40; k < maxKeys; k++) {
+    for (int k = 0; k < 36; k++)
       Serial.print(" ");
-    }
-    printPaddedString(phase, 10);
-    Serial.println();
+    Serial.println("|/|");
 
     unsigned long elapsed = 0;
     unsigned long remaining = 0;
@@ -56,7 +54,9 @@ void linePrinter(unsigned long now, int line) {
       Serial.print("          |/| ");
     } else if (mode == "Calibrator") {
     }
-    Serial.println();
+    for (int k = 0; k < 61; k++)
+      Serial.print(" ");
+    Serial.println("|/|");
   } break;
   case 1: {
     Serial.print("|/|===PH===ClUSTER==SAMPLES=================================|/|");
@@ -152,8 +152,10 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("totalTitTime: ");
     printPadded(pumpTotalONTime, 7);
-    Serial.print("                |/|");
-    Serial.println();
+    for (int k = 0; k < 31; k++) {
+      Serial.print(" ");
+    }
+    Serial.println("|/|");
   } break;
   case 602: {
     Serial.print("|/|==PH======CLUSTERCENTER===STDDEV=========================|/|");
@@ -181,8 +183,9 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("CalibOccTrim: ");
     printFixedFloat(CalibOccTrim, 2, 6);
-    Serial.print("   |/|");
-    Serial.println();
+    for (int k = 0; k < 18; k++)
+      Serial.print(" ");
+    Serial.println("|/|");
     Serial.print(
         "|/|=======================================================================================|/|");
     Serial.println();
@@ -207,9 +210,11 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("/");
     Serial.print(keyEnd);
     Serial.print("}");
-    Serial.print("       |/|");
-    Serial.println();
-    Serial.print("|/|ADC=SAMPLES=LARG==MEDI==SMOL==KEY===========LOCKARRAY===========PH=============|/|");
+    for (int k = 0; k < 15; k++)
+      Serial.print(" ");
+    Serial.println("|/|");
+    Serial.print(
+        "|/|ADC=SAMPLES=LARG==MEDI==SMOL==KEY===========LOCKARRAY============================PH====|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       int printedKeys = 0;
@@ -272,9 +277,21 @@ void linePrinter(unsigned long now, int line) {
               Serial.print(",");
           }
         }
+        if (printedKeys == 0) {
+          for (int k = 0; k < maxKeys; k++) {
+            Serial.print("{");
+            Serial.print("000");
+            Serial.print("}");
+            printedKeys++;
+          }
+        }
         Serial.print(">>>");
         Serial.print(phValues[pHValuesIndex]);
-        Serial.println("     |/|");
+        for (int k = printedKeys; k < maxKeys; k++) {
+          Serial.print("     ");
+        }
+        Serial.print("   ");
+        Serial.println("|/|");
       }
       if (calibOccurArr[i] < smallWindow) {
         int holderpHValueIndex = pHValuesIndex;
@@ -302,12 +319,12 @@ void linePrinter(unsigned long now, int line) {
               printedKeys++;
             }
           }
-           Serial.print(">>>");
+          Serial.print(">>>");
           Serial.print(phValues[holderpHValueIndex]);
           for (int k = printedKeys; k < maxKeys; k++) {
             Serial.print("     ");
           }
-          Serial.print("    ");
+          Serial.print("   ");
         } else if (keyEnd + 6 < i) {
           if (holderpHValueIndex == 0) {
             holderpHValueIndex = 21 - abs((keyEnd - i + 6));
@@ -336,9 +353,9 @@ void linePrinter(unsigned long now, int line) {
           for (int k = printedKeys; k < maxKeys; k++) {
             Serial.print("     ");
           }
-          Serial.print("    ");
+          Serial.print("   ");
         } else {
-          for (int k = 0; k < 56; k++) {
+          for (int k = 0; k < 55; k++) {
             Serial.print(" ");
           }
         }
