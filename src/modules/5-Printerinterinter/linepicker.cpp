@@ -281,8 +281,8 @@ void linePrinter(unsigned long now, int line) {
         }
         Serial.print(" >>>");
         Serial.print(phValues[pHValuesIndex]);
+        Serial.println(" |/|");
       }
-      Serial.println(" |/|");
       if (calibOccurArr[i] < smallWindow) {
         if (i < keyStart) {
           int holderpHValueIndex = pHValuesIndex;
@@ -333,6 +333,7 @@ void linePrinter(unsigned long now, int line) {
             }
           }
         }
+        Serial.println(" |/|");
       }
     }
   } break;
