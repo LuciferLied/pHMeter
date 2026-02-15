@@ -173,7 +173,7 @@ void linePrinter(unsigned long now, int line) {
     printFixedFloat(CalibOccSTDDev, 2, 6);
     Serial.print(" | ");
     Serial.print("CalibOccMedi: ");
-    printFixedFloat(CalibOccMedi, 2, 6);
+    printPadded(CalibOccMedi, 6);
     Serial.print(" | ");
     Serial.print("CalibOccTrim: ");
     printFixedFloat(CalibOccTrim, 2, 6);
