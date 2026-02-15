@@ -47,3 +47,4 @@ float calculateTrimmedMean(int values[], int occurrences[], int size, float trim
 void countSamples();
 void setWindows();
 void findKey();
+void largestKey();

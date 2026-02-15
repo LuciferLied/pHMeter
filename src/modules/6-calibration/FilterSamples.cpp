@@ -52,3 +52,20 @@ void findKey() {
     }
   }
 }
+
+void largestKey(){
+    currLargestKey = 0;
+    for (int i = 0; i < diffPHVals; i++)
+    {
+        int counter = 0;
+        for (int k = 0; k < maxKeys; k++)
+        {
+            if(calibKeyBook[i][k] != 0){
+                counter++;
+            } else break;            
+        }
+        if(counter > currLargestKey)
+            currLargestKey = counter;
+    }
+    
+}
