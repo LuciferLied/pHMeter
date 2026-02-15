@@ -277,8 +277,7 @@ void linePrinter(unsigned long now, int line) {
             Serial.print("{");
             Serial.print(calibKeyBook[pHValuesIndex][k]);
             Serial.print("}");
-            if (k < maxKeys - 1)
-              Serial.print(",");
+            printedKeys++;
           }
         }
         if (printedKeys == 0) {
@@ -302,9 +301,10 @@ void linePrinter(unsigned long now, int line) {
         int holderpHValueIndex = pHValuesIndex;
         Serial.print("|/|");
         if (i < keyStart - 6) {
-          if (holderpHValueIndex == 0) {
+          holderpHValueIndex -= i-6;
+          if (holderpHValueIndex <= 0) {
             holderpHValueIndex = 21 - (keyStart - i - 6);
-          } else if (holderpHValueIndex == diffPHVals) {
+          } else if (holderpHValueIndex >= diffPHVals) {
             holderpHValueIndex = 0 - (keyStart - i - 6);
           }
           for (int k = 0; k < maxKeys; k++) {
@@ -312,8 +312,7 @@ void linePrinter(unsigned long now, int line) {
               Serial.print("{");
               Serial.print(calibKeyBook[holderpHValueIndex][k]);
               Serial.print("}");
-              if (k < maxKeys - 1)
-                Serial.print(",");
+              printedKeys++;
             }
           }
           if (printedKeys == 0) {
@@ -332,6 +331,7 @@ void linePrinter(unsigned long now, int line) {
           }
           Serial.print("   ");
         } else if (keyEnd + 6 < i) {
+          holderpHValueIndex = holderpHValueIndex + abs(keyEnd - i)-6;
           if (holderpHValueIndex == 0) {
             holderpHValueIndex = 0 + abs(keyEnd - i)-6;
           } else if (holderpHValueIndex == diffPHVals) {
@@ -343,8 +343,7 @@ void linePrinter(unsigned long now, int line) {
                 Serial.print("{");
                 Serial.print(calibKeyBook[holderpHValueIndex][k]);
                 Serial.print("}");
-                if (k < maxKeys - 1)
-                  Serial.print(",");
+                printedKeys++;
               }
             }
             if (printedKeys == 0) {

@@ -23,14 +23,17 @@ void commander(unsigned long now) {
     pumpTotalONTime = 0;
     pHValuesIndex++;
   }
-  if (incCommand == "key"){
-    for(int i = keyStart; i < keyEnd+1; i++ ){
-      for(int k = 0; k < maxKeys; k++){
-        if(calibKeyBook[pHValuesIndex][k] == 0){
-          calibKeyBook[pHValuesIndex][k] = calibValueArr[i];
-          break;
-        }
+  if (incCommand == "key") {
+    int currentKeyEntry = 0;
+    for(int i = 0; i < maxKeys; i++){
+      calibKeyBook[pHValuesIndex][i] = 0;
+    }
+    for (int i = keyStart; i < keyEnd; i++) {
+      if (currentKeyEntry == maxKeys) {
+        break;
       }
+      calibKeyBook[pHValuesIndex][currentKeyEntry] = calibValueArr[i];
+      currentKeyEntry++;
     }
     sortRow(pHValuesIndex, calibKeyBook);
   }
@@ -70,7 +73,7 @@ void commander(unsigned long now) {
   }
   if (incCommand == "emptypump") {
     runPump = true;
-    currentPumpTiming = 10*1000;
+    currentPumpTiming = 10 * 1000;
     pump(now);
   }
   if (incCommand == "prev") {
