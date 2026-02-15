@@ -1,26 +1,24 @@
 #include <config.h>
 
-void syncShiftArrays(int values[], int counts[], int size) {
-    int writeIndex = 0;
-    highestOcc = 0;
-    for (int readIndex = 0; readIndex < size; readIndex++) {
-        // We assume a '0' in the values array is an empty slot
-        if (values[readIndex] != 0) {
-            if(counts[writeIndex] > highestOcc){
-               highestOcc = counts[writeIndex];
-            }
-            // Move the value and its corresponding count
-            values[writeIndex] = values[readIndex];
-            counts[writeIndex] = counts[readIndex];
-            writeIndex++;
-        }
-    }
+void syncShiftArrays(int values[], int occurrences[], int size) {
+  highestOcc = 0;
+  int tempMax = 0; // Local tracker to find the new highest
 
-    // Fill the remaining tail of both arrays with 0
-    while (writeIndex < size) {
-        values[writeIndex] = 0;
-        counts[writeIndex] = 0;
-        writeIndex++;
+  // If shifting left (removing the oldest element at index 0):
+  for (int i = 0; i < size - 1; i++) {
+    values[i] = values[i + 1];
+    occurrences[i] = occurrences[i + 1];
+
+    // Check if this moved value is the new highest
+    if (occurrences[i] > tempMax) {
+      tempMax = occurrences[i];
     }
+  }
+
+  // Clear the last slot for new data
+  values[size - 1] = 0;
+  occurrences[size - 1] = 0;
+
+  // Update the global variable
+  highestOcc = tempMax;
 }
-

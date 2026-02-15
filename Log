@@ -69,6 +69,9 @@ Blabber:                                                                        
         CurrentPH = 5.6 on Probe,  on refMeter = 6.0                                    |
                                                                                         |
                                                                                         |
+                                                                                        |
+Look like its time try a window approach instead                                        |
+
 Program Execution/Sanity check:
 
          _-- <- - <- - <- - <- - <- - <- - <- - <- - <- - <--_              
