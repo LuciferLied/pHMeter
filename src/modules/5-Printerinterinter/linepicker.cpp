@@ -215,6 +215,7 @@ void linePrinter(unsigned long now, int line) {
       } else {
         printPadded(0, 4);
       }
+      Serial.print(" | ");
       if (calibOccurArr[i] > mediumWindow) {
         printPadded(calibOccurArr[i], 4);
       } else {
