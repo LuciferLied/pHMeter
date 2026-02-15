@@ -165,7 +165,7 @@ void linePrinter(unsigned long now, int line) {
     }
 
   } break;
-  case 603: /////print all values
+  case 603:
   {
     Serial.print("|/|========================================================================|/|");
     Serial.println();
