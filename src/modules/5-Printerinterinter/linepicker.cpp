@@ -185,17 +185,17 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
     Serial.print("|/| ");
     Serial.print("NrSmpls: ");
-    printFixedFloat(ammSamplesCollected,2,6);
+    printPadded(ammSamplesCollected,6);
     Serial.print(" | ");
     Serial.print("LrgWin: ");
-    printFixedFloat(largeWindowMult*100,2,6);
+    printPadded(largeWindowMult*100,6);
     Serial.print(" | ");
     Serial.print("MedWin: ");
-    printFixedFloat(mediumWindowMult*100,2,6);
+    printPadded(mediumWindowMult*100,6);
     Serial.print(" | ");
     Serial.print("SmolWin: ");
-    printFixedFloat(smallWindowMult*100,2,6);
-    Serial.print("   |/|");
+    printPadded(smallWindowMult*100,6);
+    Serial.print("    |/|");
     Serial.println();
 
 
