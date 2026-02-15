@@ -31,8 +31,27 @@ void setWindows() {
 
 void countSamples() {
   for (int i = 0; i < calibValArrSize; i++) {
-    if (calibValueArr[i] != 0 && calibOccurArr[i] != 0){
-        ammSamplesCollected+=calibOccurArr[i];
+    if (calibValueArr[i] != 0 && calibOccurArr[i] != 0) {
+      ammSamplesCollected += calibOccurArr[i];
+    }
+  }
+}
+
+void findKey() {
+  keyStart = 0;
+  keyEnd = 0;
+  for (int i = 0; i < calibValArrSize; i++) {
+    if (MAXADC > calibValueArr[i] && calibValueArr[i] > MINADC) {
+      if (calibValueArr[i] >= smallWindow) {
+        keyStart = i;
+        for (int k = i; k < calibValArrSize; k++) {
+          if (calibValueArr[i] < smallWindow) {
+            break;
+          }
+        }
+        keyEnd = i;
+        break;
+      }
     }
   }
 }

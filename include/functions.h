@@ -46,3 +46,4 @@ float calculateMedian(int values[], int occurrences[], int size);
 float calculateTrimmedMean(int values[], int occurrences[], int size, float trimPercent);
 void countSamples();
 void setWindows();
+void findKey();

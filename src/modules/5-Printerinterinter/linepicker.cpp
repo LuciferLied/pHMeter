@@ -3,7 +3,8 @@
 void linePrinter(unsigned long now, int line) {
   switch (line) {
   case 0: {
-    Serial.print("|/|B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N|/|");
+    Serial.print(
+        "|/|B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("V0.0.9");
@@ -137,7 +138,8 @@ void linePrinter(unsigned long now, int line) {
   case 601: {
     unsigned long elapsed = millis() - lastTitTime;
     unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
-    Serial.print("|/|=======================================================================================|/|");
+    Serial.print(
+        "|/|=======================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("titTime(ms): ");
@@ -165,7 +167,8 @@ void linePrinter(unsigned long now, int line) {
 
   } break;
   case 603: {
-    Serial.print("|/|=======================================================================================|/|");
+    Serial.print(
+        "|/|=======================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("CalibOccSTDDev: ");
@@ -178,7 +181,8 @@ void linePrinter(unsigned long now, int line) {
     printFixedFloat(CalibOccTrim, 2, 6);
     Serial.print("   |/|");
     Serial.println();
-    Serial.print("|/|=======================================================================================|/|");
+    Serial.print(
+        "|/|=======================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("NrSmpls: ");
@@ -199,18 +203,23 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
 
     int colWidth = 5;
-    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===LOCK==================================|/|");
+    Serial.print(
+        "|/|==ADC=SAMPLES==LRGWIN==MEDWIN==SMLWIN===KEY===LOCKARRAY======PH========================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
         continue;
+      }
+      if (i == keyStart || i == keyEnd) {
+            Serial.print(
+         "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=|/|");
       }
       Serial.print("|/| ");
       printPadded(calibValueArr[i], colWidth - 2);
       Serial.print(" | ");
       printPadded(calibOccurArr[i], colWidth);
       Serial.print(" | ");
-      if (calibOccurArr[i] > largeWindow) {
+      if (calibOccurArr[i] >= largeWindow) {
         printPadded(calibOccurArr[i], colWidth);
       } else {
         for (int k = 0; k < colWidth; k++) {
@@ -218,7 +227,7 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > mediumWindow) {
+      if (calibOccurArr[i] >= mediumWindow) {
         printPadded(calibOccurArr[i], colWidth);
       } else {
         for (int k = 0; k < colWidth; k++) {
@@ -226,7 +235,7 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > smallWindow) {
+      if (calibOccurArr[i] >= smallWindow) {
         printPadded(calibOccurArr[i], colWidth);
       } else {
         for (int k = 0; k < colWidth; k++) {
@@ -234,55 +243,61 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > smallWindow) {
+      if (calibOccurArr[i] >= smallWindow) {
         printPadded(calibValueArr[i], colWidth - 2);
       } else {
         for (int k = 0; k < colWidth - 2; k++) {
           Serial.print("#");
         }
       }
-      if (calibOccurArr[i] > smallWindow) {
+      if (calibOccurArr[i] >= smallWindow) {
         Serial.print("->");
       } else {
-        Serial.print("[]");
+        Serial.print("");
       }
-      if (calibOccurArr[i] > smallWindow) {
+      if (calibOccurArr[i] >= smallWindow) {
         int firstZero = 0;
         for (int k = 0; k < maxKeys; k++) {
           if (calibKeyBook[pHValuesIndex][k] != 0) {
             Serial.print("{");
             Serial.print(calibKeyBook[pHValuesIndex][k]);
-            Serial.print("},");
+            Serial.print("}");
+            if (k < maxKeys - 1)
+              Serial.print(",");
           }
         }
         if (firstZero < 6) {
           for (int k = 0; k < 6 - firstZero; k++) {
-            Serial.print("{0},");
+            Serial.print("{0}");
+            if (k < 6 - firstZero)
+              Serial.print(",");
           }
         }
+        Serial.print("");
+        Serial.print(phValues[pHValuesIndex]);
       }
       Serial.println(" |/|");
     }
+  } break;
+  case 607: {
+    // int helpLineIndex = 0;
+    // switch (helpLineIndex)
+    // {
+    // case constant expression:
+    //   /* code */
+    //   break;
+
+    // default:
+    //   break;
+    // }
+  } break;
+  case 999: {
+    Serial.print(
+        "|/|E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N|/|");
+    Serial.println();
+  } break;
+  default: {
+
+  } break;
   }
-  break;
-case 607: {
-  // int helpLineIndex = 0;
-  // switch (helpLineIndex)
-  // {
-  // case constant expression:
-  //   /* code */
-  //   break;
-
-  // default:
-  //   break;
-  // }
-} break;
-case 999: {
-  Serial.print("|/|E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N|/|");
-  Serial.println();
-} break;
-default: {
-
-} break;
-}
 }

@@ -12,4 +12,5 @@ void calibrator2(unsigned long now) {
   CalibOccTrim = calculateTrimmedMean(calibValueArr, calibOccurArr, 100, 0.25);
   countSamples();
   setWindows();
+  findKey();
 }
