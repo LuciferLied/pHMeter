@@ -18,8 +18,9 @@ void calibrator2(unsigned long now) {
   smallWindow = 1; 
   for (int i = 0; i < 100; i++)
   {
-    Serial.println(calibValueArr[i]);
-    Serial.println(" - ");
+    if(calibOccurArr[i]> highestOcc*0.60)
+    Serial.print(calibValueArr[i]);
+    Serial.print(" - ");
     Serial.println(calibOccurArr[i]); 
   }
 }
