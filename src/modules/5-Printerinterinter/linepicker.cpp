@@ -193,6 +193,9 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("NrSmpls: ");
     printPadded(ammSamplesCollected, 6);
     Serial.print(" | ");
+    Serial.print("minSmpls ");
+    printPadded(minSmpls, 3);
+    Serial.print(" | ");
     Serial.print("LrgWin: ");
     printPadded(largeWindowMult * 100, 2);
     Serial.print("%");
@@ -210,7 +213,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("/");
     Serial.print(keyEnd);
     Serial.print("}");
-    for (int k = 0; k < 15; k++)
+    for (int k = 0; k < 0; k++)
       Serial.print(" ");
     Serial.println("|/|");
     Serial.print(
@@ -218,7 +221,8 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
     for (int i = 0; i < 100; i++) {
       int printedKeys = 0;
-      if (calibOccurArr[i] < 1) {
+      int printedPHs = 0;
+      if (calibOccurArr[i] < minSmpls) {
         continue;
       }
       if (i == keyStart || i == keyEnd + 1) {
@@ -287,13 +291,14 @@ void linePrinter(unsigned long now, int line) {
         }
         Serial.print(">>>");
         Serial.print(phValues[pHValuesIndex]);
+        printedPHs++;
         for (int k = printedKeys; k < maxKeys; k++) {
           Serial.print("     ");
         }
         Serial.print("<<<");
         Serial.println("|/|");
       }
-      if (calibOccurArr[i] < smallWindow) {
+      if (calibOccurArr[i] < smallWindow && printedPHs < diffPHVals) {
         int holderpHValueIndex = pHValuesIndex;
         Serial.print("|/|");
         if (i < keyStart - 6) {
@@ -321,6 +326,7 @@ void linePrinter(unsigned long now, int line) {
           }
           Serial.print(">>>");
           Serial.print(phValues[holderpHValueIndex]);
+          printedPHs++;
           for (int k = printedKeys; k < maxKeys; k++) {
             Serial.print("     ");
           }
@@ -351,6 +357,7 @@ void linePrinter(unsigned long now, int line) {
             }
             Serial.print(">>>");
             Serial.print(phValues[holderpHValueIndex]);
+            printedPHs++;
             for (int k = printedKeys; k < maxKeys; k++) {
               Serial.print("     ");
             }

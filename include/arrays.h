@@ -31,6 +31,7 @@ inline float CalibOccMedi = 0;
 inline float CalibOccTrim = 0;
 inline int usedSize = 0;
 inline int highestOcc = 0;
+inline int minSmpls = 100;
 inline float largeWindowMult = 0.10;
 inline float mediumWindowMult = 0.36;
 inline float smallWindowMult = 0.60;
