@@ -22,7 +22,7 @@ void linePrinter(unsigned long now, int line) {
 
     unsigned long elapsed = 0;
     unsigned long remaining = 0;
-    Serial.print("|/|---------------------------------------------------------|/|");
+    Serial.print("|/|------------------------------------------------------------------------|/|");
     // Serial.print("|/|=========================================================|/|");
     Serial.println();
     Serial.print("|/| ");
@@ -105,7 +105,7 @@ void linePrinter(unsigned long now, int line) {
 
   } break;
   case 600: {
-    Serial.print("|/|=========================================================|/|");
+    Serial.print("|/|========================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("stdDevOfADC: ");
@@ -135,7 +135,7 @@ void linePrinter(unsigned long now, int line) {
   case 601: {
     unsigned long elapsed = millis() - lastTitTime;
     unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
-    Serial.print("|/|=========================================================|/|");
+    Serial.print("|/|========================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("titTime(ms): ");
@@ -164,7 +164,7 @@ void linePrinter(unsigned long now, int line) {
   } break;
   case 603: /////print all values
   {
-    Serial.print("|/|=========================================================|/|");
+    Serial.print("|/|========================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("CalibOccMedi: ");
@@ -175,11 +175,9 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
 
 
-    largeWindow = highestOcc*0.20;
-    medWindow = highestOcc*0.36;
-    smallWindow = highestOcc*0.60;
 
-    Serial.print("|/|=ADC==samples=medWin=smlWin=ADC===========|/|");
+
+    Serial.print("|/|=ADC==samples=medWin=smlWin=ADC=========================================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
       if (calibOccurArr[i] < largeWindow) {
@@ -223,7 +221,7 @@ void linePrinter(unsigned long now, int line) {
     // }
   } break;
   case 999: {
-    Serial.print("|/|==========================END============================|/|");
+    Serial.print("|/|==========================END===========================================|/|");
     Serial.println();
   } break;
   default: {
