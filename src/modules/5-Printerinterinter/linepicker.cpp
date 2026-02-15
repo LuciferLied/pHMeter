@@ -177,7 +177,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|==ADC====samples==filt>100=====================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
-      if (calibOccurArr[i] > 100) {
+      if (calibOccurArr[i] < 100) {
         continue;
       }
 

@@ -9,8 +9,8 @@ void printer(unsigned long now, String mode, unsigned long &printerTimer, unsign
       linePrinter(now, 1);
       linePrinter(now, 2);
     } else if (mode == "Calibrator") {
-      linePrinter(now, 600);
-      linePrinter(now, 601);
+      //linePrinter(now, 600);
+      //linePrinter(now, 601);
       //linePrinter(now, 602);
       linePrinter(now, 603);
     }
