@@ -199,19 +199,25 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("SmolWin: ");
     printPadded(smallWindowMult * 100, 2);
     Serial.print("%");
-    Serial.print("             |/|");
+    Serial.print(" | ");
+    Serial.print("Key{ ");
+    Serial.print(keyStart);
+    Serial.print("/");
+    Serial.print(keyEnd);
+    Serial.print("}");
+    Serial.print("       |/|");
     Serial.println();
 
     int colWidth = 5;
     Serial.print(
-        "|/|==ADC=SAMPLES==LRGWIN==MEDWIN==SMLWIN===KEY===LOCKARRAY======PH========================|/|");
+        "|/|==ADC=SAMPLES==LRGWIN==MEDWIN==SMLWIN===KEY==========LOCKARRAY======PH=================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
         continue;
       }
       if (i == keyStart || i == keyEnd) {
-            Serial.print(
+            Serial.println(
          "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=|/|");
       }
       Serial.print("|/| ");
@@ -251,7 +257,7 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       if (calibOccurArr[i] >= smallWindow) {
-        Serial.print("->");
+        Serial.print("===>");
       } else {
         Serial.print("");
       }
