@@ -179,7 +179,7 @@ void linePrinter(unsigned long now, int line) {
 
     Serial.print("|/|=ADC==samples=medWin=smlWin=KEY=========================================|/|");
     Serial.println();
-    for (int i = 0; i < usedSize; i++) {
+    for (int i = 0; i < 100; i++) {
       // if (calibOccurArr[i] < largeWindow) {
       //   continue;
       // }
