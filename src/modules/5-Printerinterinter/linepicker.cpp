@@ -244,10 +244,10 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       if (calibOccurArr[i] > smallWindow) {
-        Serial.println("->");
+        Serial.print("->");
       }
       if (calibOccurArr[i] <= smallWindow) {
-        Serial.println("[]");
+        Serial.print("[]");
       }
 
       Serial.println(" |/|");
