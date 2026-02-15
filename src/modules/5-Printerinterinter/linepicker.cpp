@@ -17,7 +17,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("phase: ");
     printPaddedString(phase, 10);
-    Serial.print("          |/|");
+    Serial.print("           |/|");
     Serial.println();
 
     unsigned long elapsed = 0;
@@ -187,13 +187,16 @@ void linePrinter(unsigned long now, int line) {
     printPadded(ammSamplesCollected, 6);
     Serial.print(" | ");
     Serial.print("LrgWin: ");
-    printPadded(largeWindowMult * 100, 6);
+    printPadded(largeWindowMult * 100, 2);
+    Serial.print("%");
     Serial.print(" | ");
     Serial.print("MedWin: ");
-    printPadded(mediumWindowMult * 100, 6);
+    printPadded(mediumWindowMult * 100, 2);
+    Serial.print("%");
     Serial.print(" | ");
     Serial.print("SmolWin: ");
-    printPadded(smallWindowMult * 100, 6);
+    printPadded(smallWindowMult * 100, 2);
+    Serial.print("%");
     Serial.print("    |/|");
     Serial.println();
 
