@@ -290,7 +290,7 @@ void linePrinter(unsigned long now, int line) {
         for (int k = printedKeys; k < maxKeys; k++) {
           Serial.print("     ");
         }
-        Serial.print("   ");
+        Serial.print("<<<");
         Serial.println("|/|");
       }
       if (calibOccurArr[i] < smallWindow) {
