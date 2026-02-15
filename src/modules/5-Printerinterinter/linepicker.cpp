@@ -22,7 +22,7 @@ void linePrinter(unsigned long now, int line) {
 
     unsigned long elapsed = 0;
     unsigned long remaining = 0;
-    Serial.print("|/|------------------------------------------------------------------------|/|");
+    Serial.print("|/|--------------------------------------------------------------------------------------|/|");
     // Serial.print("|/|=========================================================|/|");
     Serial.println();
     Serial.print("|/| ");
@@ -311,10 +311,6 @@ void linePrinter(unsigned long now, int line) {
         }
         Serial.print(">>>");
         Serial.print(phValues[holderpHValueIndex]);
-        for (int i = 0; i < largestKeySize; i++)
-        {
-        }
-        
         Serial.println("|/|");
       }
     }
