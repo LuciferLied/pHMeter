@@ -24,7 +24,7 @@ void syncShiftArrays(int values[], int occurrences[], int size) {
 }
 
 void setWindows(){
-    largeWindow = highestOcc * largeWindowMult;
+    largeWindow = 1; //set to 1 to show all vals
     mediumWindow = highestOcc * mediumWindowMult;
     smallWindow = highestOcc * smallWindowMult;
 }
