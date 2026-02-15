@@ -16,13 +16,15 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(mode);
     Serial.print(" | ");
     Serial.print("phase: ");
+    for (int k = 40; k < maxKeys; k++) {
+      Serial.print(" ");
+    }
     printPaddedString(phase, 10);
-    Serial.print("           |/|");
     Serial.println();
 
     unsigned long elapsed = 0;
     unsigned long remaining = 0;
-    Serial.print("|/|--------------------------------------------------------------------------------------|/|");
+    Serial.print("|/|----------------------------------------------------------------------------------------|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("PH: ");
