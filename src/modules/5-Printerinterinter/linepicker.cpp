@@ -177,7 +177,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("|/|==ADC====samples==filt>100=====================|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
-      if (calibOccurArr[i] < 100) {
+      if (calibOccurArr[i] < largeWindow) {
         continue;
       }
 
@@ -186,25 +186,19 @@ void linePrinter(unsigned long now, int line) {
       Serial.print(" | ");
       printPadded(calibOccurArr[i], 4);
       Serial.print(" | ");
-      if (calibOccurArr[i] > 100) {
+      if (calibOccurArr[i] > medWindow) {
         printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 4);
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > 1000) {
+      if (calibOccurArr[i] > smallWindow) {
         printPadded(calibOccurArr[i], 4);
       } else {
         printPadded(0, 4);
       }
       Serial.print(" | ");
-      if (calibOccurArr[i] > 1500) {
-        printPadded(calibOccurArr[i], 4);
-      } else {
-        printPadded(0, 4);
-      }
-      Serial.print(" | ");
-      if (calibOccurArr[i] > 1500) {
+      if (calibOccurArr[i] > smallWindow) {
         printPadded(calibValueArr[i], 4);
       } else {
         printPadded(0, 4);

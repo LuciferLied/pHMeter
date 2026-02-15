@@ -2,10 +2,13 @@
 
 void syncShiftArrays(int values[], int counts[], int size) {
     int writeIndex = 0;
-
+    highestOcc = 0;
     for (int readIndex = 0; readIndex < size; readIndex++) {
         // We assume a '0' in the values array is an empty slot
         if (values[readIndex] != 0) {
+            if(counts[writeIndex] > highestOcc){
+               highestOcc = counts[writeIndex];
+            }
             // Move the value and its corresponding count
             values[writeIndex] = values[readIndex];
             counts[writeIndex] = counts[readIndex];
