@@ -379,6 +379,14 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(
         "|/|E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N|/|");
     Serial.println();
+    Serial.println();
+    Serial.println();
+    Serial.println();
+    Serial.println();
+    Serial.println();
+    Serial.println();
+    Serial.println();
+
   } break;
   default: {
 
