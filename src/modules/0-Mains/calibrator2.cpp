@@ -10,5 +10,6 @@ void calibrator2(unsigned long now) {
   CalibOccSTDDev = calculateStdDev(calibValueArr, calibOccurArr, 100);
   CalibOccMedi = calculateMedian(calibValueArr, calibOccurArr, 100);
   CalibOccTrim = calculateTrimmedMean(calibValueArr, calibOccurArr, 100, 0.25);
+  countSamples();
   setWindows();
 }
