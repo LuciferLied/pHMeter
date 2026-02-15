@@ -331,29 +331,31 @@ void linePrinter(unsigned long now, int line) {
           } else if (holderpHValueIndex == diffPHVals) {
             holderpHValueIndex = 21 + abs(keyEnd - i)-6;
           }
-          for (int k = 0; k < maxKeys; k++) {
-            if (calibKeyBook[holderpHValueIndex][k] != 0) {
-              Serial.print("{");
-              Serial.print(calibKeyBook[holderpHValueIndex][k]);
-              Serial.print("}");
-              if (k < maxKeys - 1)
-                Serial.print(",");
-            }
-          }
-          if (printedKeys == 0) {
+          if( 0 <= holderpHValueIndex && holderpHValueIndex < diffPHVals){
             for (int k = 0; k < maxKeys; k++) {
-              Serial.print("{");
-              Serial.print("000");
-              Serial.print("}");
-              printedKeys++;
+              if (calibKeyBook[holderpHValueIndex][k] != 0) {
+                Serial.print("{");
+                Serial.print(calibKeyBook[holderpHValueIndex][k]);
+                Serial.print("}");
+                if (k < maxKeys - 1)
+                  Serial.print(",");
+              }
             }
+            if (printedKeys == 0) {
+              for (int k = 0; k < maxKeys; k++) {
+                Serial.print("{");
+                Serial.print("000");
+                Serial.print("}");
+                printedKeys++;
+              }
+            }
+            Serial.print(">>>");
+            Serial.print(phValues[holderpHValueIndex]);
+            for (int k = printedKeys; k < maxKeys; k++) {
+              Serial.print("     ");
+            }
+            Serial.print("   ");
           }
-          Serial.print(">>>");
-          Serial.print(phValues[holderpHValueIndex]);
-          for (int k = printedKeys; k < maxKeys; k++) {
-            Serial.print("     ");
-          }
-          Serial.print("   ");
         } else {
           for (int k = 0; k < 55; k++) {
             Serial.print(" ");
@@ -376,17 +378,16 @@ void linePrinter(unsigned long now, int line) {
     // }
   } break;
   case 999: {
-    Serial.print(
+    Serial.println(
         "|/|E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N|/|");
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println();
-
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
+    // Serial.println();
   } break;
   default: {
 
