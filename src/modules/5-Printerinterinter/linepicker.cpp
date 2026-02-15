@@ -284,13 +284,13 @@ void linePrinter(unsigned long now, int line) {
         Serial.println("         |/|");
       }
       if (calibOccurArr[i] < smallWindow) {
-        Serial.println("|/| ");
+        Serial.print("|/| ");
         if (i < keyStart) {
           int holderpHValueIndex = pHValuesIndex;
           if (holderpHValueIndex == 0) {
-            holderpHValueIndex = 21 - (keyStart-i);
+            holderpHValueIndex = 21 - (keyStart - i);
           } else if (pHValuesIndex == diffPHVals) {
-            holderpHValueIndex = 0 + (keyStart-i);
+            holderpHValueIndex = 0 + (keyStart - i);
           }
           int firstZero = 0;
           for (int k = 0; k < maxKeys; k++) {
@@ -312,9 +312,9 @@ void linePrinter(unsigned long now, int line) {
         } else if (keyEnd < i) {
           int holderpHValueIndex = pHValuesIndex;
           if (holderpHValueIndex == 0) {
-            holderpHValueIndex = 0 + (keyStart-i);
+            holderpHValueIndex = 0 + (keyStart - i);
           } else if (pHValuesIndex == diffPHVals) {
-            holderpHValueIndex = 21 + (keyStart-i);
+            holderpHValueIndex = 21 + (keyStart - i);
           }
           int firstZero = 0;
           for (int k = 0; k < maxKeys; k++) {
