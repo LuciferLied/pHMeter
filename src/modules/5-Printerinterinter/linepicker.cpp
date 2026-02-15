@@ -218,7 +218,7 @@ void linePrinter(unsigned long now, int line) {
       }
       if (i == keyStart || i == keyEnd) {
             Serial.println(
-         "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=|/|");
+         "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=|/|");
       }
       Serial.print("|/| ");
       printPadded(calibValueArr[i], colWidth - 2);
