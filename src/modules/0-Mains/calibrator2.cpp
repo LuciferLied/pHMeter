@@ -11,6 +11,7 @@ void calibrator2(unsigned long now) {
   CalibOccMedi = calculateMedian(calibValueArr, calibOccurArr, 100);
   CalibOccTrim = calculateTrimmedMean(calibValueArr, calibOccurArr, 100, 0.25);
   setWindows();
+  Serial.println(highestOcc);
   Serial.println(largeWindow);
   Serial.println(mediumWindow);
   Serial.println(smallWindow);
