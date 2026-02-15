@@ -174,14 +174,12 @@ void linePrinter(unsigned long now, int line) {
     printPadded(CalibOccTrim, 4);
     Serial.println();
 
-    Serial.print("|/|==ADC====samples==filt>100=====================|/|");
+    Serial.print("|/|==ADC==samples==medWin==LargWin=============|/|");
     Serial.println();
     for (int i = 0; i < usedSize; i++) {
       if (calibOccurArr[i] < largeWindow) {
         continue;
       }
-      Serial.println(highestOcc);
-
       Serial.print("|/| ");
       printPadded(calibValueArr[i], 4);
       Serial.print(" | ");
