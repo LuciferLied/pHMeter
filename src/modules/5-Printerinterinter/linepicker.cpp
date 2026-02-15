@@ -17,7 +17,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(" | ");
     Serial.print("phase: ");
     printPaddedString(phase, 10);
-    Serial.print(" |/|");
+    Serial.print("          |/|");
     Serial.println();
 
     unsigned long elapsed = 0;
