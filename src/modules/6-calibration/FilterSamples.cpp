@@ -23,8 +23,16 @@ void syncShiftArrays(int values[], int occurrences[], int size) {
   highestOcc = tempMax;
 }
 
-void setWindows(){
-    largeWindow = 1; //set to 1 to show all vals
-    mediumWindow = highestOcc * mediumWindowMult;
-    smallWindow = highestOcc * smallWindowMult;
+void setWindows() {
+  largeWindow = 1; // set to 1 to show all vals
+  mediumWindow = highestOcc * mediumWindowMult;
+  smallWindow = highestOcc * smallWindowMult;
+}
+
+void countSamples() {
+  for (int i = 0; i < calibValArrSize; i++) {
+    if (calibValueArr[i] != 0 && calibOccurArr[i] != 0){
+        ammSamplesCollected+=calibOccurArr[i];
+    }
+  }
 }

@@ -31,13 +31,13 @@ inline float CalibOccMedi = 0;
 inline float CalibOccTrim = 0;
 inline int usedSize = 0;
 inline int highestOcc = 0;
-inline int largeWindowMult = 0.01;
+inline int largeWindowMult = 0.10;
 inline int mediumWindowMult = 0.36;
 inline int smallWindowMult = 0.60;
 inline int largeWindow = 0;
 inline int mediumWindow = 0;
 inline int smallWindow = 0;
-
+inline int ammSamplesCollected = 0;
 inline int CurrentKeys[]={0,0,0,0,0,0,0,0,0,0};
 inline int calibKeyBook[diffPHVals][10];
 //////calibrator//////calibrator//////calibrator//////

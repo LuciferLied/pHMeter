@@ -181,13 +181,28 @@ void linePrinter(unsigned long now, int line) {
     Serial.print("   |/|");
     Serial.println();
 
+    Serial.print("|/|========================================================================|/|");
+    Serial.println();
+    Serial.print("|/| ");
+    Serial.print("NrSamples: ");
+    printFixedFloat(ammSamplesCollected,2,6);
+    Serial.print(" | ");
+    Serial.print("LargeWin: ");
+    printFixedFloat(largeWindowMult*100,2,6);
+    Serial.print(" | ");
+    Serial.print("MediumWin: ");
+    printFixedFloat(mediumWindowMult*100,2,6);
+    Serial.print(" | ");
+    Serial.print("SmallWin: ");
+    printFixedFloat(smallWindowMult*100,2,6);
+    Serial.print("   |/|");
+    Serial.println();
 
 
-
-    Serial.print("|/|=ADC==samples=medWin=smlWin===KEY=======================================|/|");
+    Serial.print("|/|=ADC==SAMPLES=LRGWIN=MEDWIN=SMLWIN===KEY================================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
-      if (calibOccurArr[i] < largeWindow) {
+      if (calibOccurArr[i] < 1) {
         continue;
       }
       Serial.print("|/| ");
@@ -195,6 +210,11 @@ void linePrinter(unsigned long now, int line) {
       Serial.print(" | ");
       printPadded(calibOccurArr[i], 4);
       Serial.print(" | ");
+      if (calibOccurArr[i] > largeWindow) {
+        printPadded(calibOccurArr[i], 4);
+      } else {
+        printPadded(0, 4);
+      }
       if (calibOccurArr[i] > mediumWindow) {
         printPadded(calibOccurArr[i], 4);
       } else {
