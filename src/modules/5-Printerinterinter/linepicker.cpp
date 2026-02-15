@@ -200,7 +200,7 @@ void linePrinter(unsigned long now, int line) {
     printPadded(smallWindowMult * 100, 2);
     Serial.print("%");
     Serial.print(" | ");
-    Serial.print("Key{ ");
+    Serial.print("Key{");
     Serial.print(keyStart);
     Serial.print("/");
     Serial.print(keyEnd);
@@ -257,7 +257,7 @@ void linePrinter(unsigned long now, int line) {
         }
       }
       if (calibOccurArr[i] >= smallWindow) {
-        Serial.print("===>");
+        Serial.print("====>");
       } else {
         Serial.print("");
       }

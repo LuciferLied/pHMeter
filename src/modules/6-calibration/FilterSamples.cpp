@@ -40,17 +40,14 @@ void countSamples() {
 void findKey() {
   keyStart = 0;
   keyEnd = 0;
-  for (int i = 0; i < calibValArrSize; i++) {
-    if (MAXADC > calibValueArr[i] && calibValueArr[i] > MINADC) {
-      if (calibValueArr[i] >= smallWindow) {
+  int i = 0;
+  for (i; i < calibValArrSize; i++) {
+    if (calibValueArr[i] >= smallWindow) {
+      if (keyStart == 0) {
         keyStart = i;
-        for (int k = i; k < calibValArrSize; k++) {
-          if (calibValueArr[i] < smallWindow) {
-            break;
-          }
-        }
+      }
+      if (keyStart != 0) {
         keyEnd = i;
-        break;
       }
     }
   }
