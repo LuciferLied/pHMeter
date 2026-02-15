@@ -2,7 +2,7 @@
 
 void printer(unsigned long now, String mode, unsigned long &printerTimer, unsigned long printerCD,
              int &printIteration) {
-  if (now - printerTimer >= printerCD) {
+  if (now - printerTimer >= printerCD && print == true) {
     printerTimer = now;
     linePrinter(now, 0);
     if (mode == "Doser") {
@@ -16,5 +16,6 @@ void printer(unsigned long now, String mode, unsigned long &printerTimer, unsign
     }
     linePrinter(now, 999);
     printIteration++;
+    print = false; /////////////// FJERN
   }
 };
