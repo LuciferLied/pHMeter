@@ -263,8 +263,8 @@ void linePrinter(unsigned long now, int line) {
           }
         }
       }
+      Serial.println(" |/|");
     }
-    Serial.println(" |/|");
   }
   break;
 case 607: {
