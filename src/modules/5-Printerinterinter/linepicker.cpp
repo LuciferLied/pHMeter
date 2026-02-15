@@ -3,8 +3,8 @@
 void linePrinter(unsigned long now, int line) {
   switch (line) {
   case 0: {
-
-    Serial.print("|/|N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=|/|");
+    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===LOCK===================================|/|");
+    Serial.print("|/|B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=G=B=E=G=I=N=N=I=N=|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("V0.0.9");
@@ -138,7 +138,7 @@ void linePrinter(unsigned long now, int line) {
   case 601: {
     unsigned long elapsed = millis() - lastTitTime;
     unsigned long remaining = (elapsed < titCD) ? (titCD - elapsed) : 0;
-    Serial.print("|/|========================================================================|/|");
+    Serial.print("|/|========================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("titTime(ms): ");
@@ -166,7 +166,7 @@ void linePrinter(unsigned long now, int line) {
 
   } break;
   case 603: {
-    Serial.print("|/|========================================================================|/|");
+    Serial.print("|/|========================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("CalibOccSTDDev: ");
@@ -179,8 +179,7 @@ void linePrinter(unsigned long now, int line) {
     printFixedFloat(CalibOccTrim, 2, 6);
     Serial.print("   |/|");
     Serial.println();
-
-    Serial.print("|/|========================================================================|/|");
+    Serial.print("|/|========================================================================================|/|");
     Serial.println();
     Serial.print("|/| ");
     Serial.print("NrSmpls: ");
@@ -201,7 +200,7 @@ void linePrinter(unsigned long now, int line) {
     Serial.println();
 
     int colWidth = 5;
-    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===LOCK===================|/|");
+    Serial.print("|/|==ADC==SAMPLES==LRGWIN==MEDWIN==SMLWIN=====KEY===LOCK===================================|/|");
     Serial.println();
     for (int i = 0; i < 100; i++) {
       if (calibOccurArr[i] < 1) {
@@ -280,7 +279,7 @@ case 607: {
   // }
 } break;
 case 999: {
-  Serial.print("|/|=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E/|");
+  Serial.print("|/|E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=D=E=N=|/|");
   Serial.println();
 } break;
 default: {
