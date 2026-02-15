@@ -31,6 +31,6 @@ inline float CalibOccTrim = 0;
 inline int usedSize = 0;
 inline int highestOcc = 0;
 inline int largeWindow = 100;
-inline int medWindow = highestOcc*0.5;
+inline int medWindow = highestOcc*0.63;
 inline int smallWindow =  - highestOcc*0.75;
 //////calibrator//////calibrator//////calibrator//////
