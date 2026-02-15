@@ -216,9 +216,9 @@ void linePrinter(unsigned long now, int line) {
       if (calibOccurArr[i] < 1) {
         continue;
       }
-      if (i == keyStart || i == keyEnd+1) {
-            Serial.println(
-         "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=|/|");
+      if (i == keyStart || i == keyEnd + 1) {
+        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=|/"
+                       "|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|/|");
       }
       Serial.print("|/| ");
       printPadded(calibValueArr[i], colWidth - 2);
@@ -275,14 +275,65 @@ void linePrinter(unsigned long now, int line) {
         if (firstZero < 6) {
           for (int k = 0; k < 6 - firstZero; k++) {
             Serial.print("{0}");
-            if (k < 6 - firstZero-1)
+            if (k < 6 - firstZero - 1)
               Serial.print(",");
           }
         }
-        Serial.print("");
+        Serial.print(" >>>");
         Serial.print(phValues[pHValuesIndex]);
       }
       Serial.println(" |/|");
+      if (calibOccurArr[i] < smallWindow) {
+        if (i < keyStart) {
+          int holderpHValueIndex = pHValuesIndex;
+          if (holderpHValueIndex == 0) {
+            holderpHValueIndex = 21 - (keyStart-i);
+          } else if (pHValuesIndex == diffPHVals) {
+            holderpHValueIndex = 0 + (keyStart-i);
+          }
+          int firstZero = 0;
+          for (int k = 0; k < maxKeys; k++) {
+            if (calibKeyBook[pHValuesIndex][k] != 0) {
+              Serial.print("{");
+              Serial.print(calibKeyBook[pHValuesIndex][k]);
+              Serial.print("}");
+              if (k < maxKeys - 1)
+                Serial.print(",");
+            }
+          }
+          if (firstZero < 6) {
+            for (int k = 0; k < 6 - firstZero; k++) {
+              Serial.print("{0}");
+              if (k < 6 - firstZero - 1)
+                Serial.print(",");
+            }
+          }
+        } else if (keyEnd < i) {
+          int holderpHValueIndex = pHValuesIndex;
+          if (holderpHValueIndex == 0) {
+            holderpHValueIndex = 0 + (keyStart-i);
+          } else if (pHValuesIndex == diffPHVals) {
+            holderpHValueIndex = 21 + (keyStart-i);
+          }
+          int firstZero = 0;
+          for (int k = 0; k < maxKeys; k++) {
+            if (calibKeyBook[pHValuesIndex][k] != 0) {
+              Serial.print("{");
+              Serial.print(calibKeyBook[pHValuesIndex][k]);
+              Serial.print("}");
+              if (k < maxKeys - 1)
+                Serial.print(",");
+            }
+          }
+          if (firstZero < 6) {
+            for (int k = 0; k < 6 - firstZero; k++) {
+              Serial.print("{0}");
+              if (k < 6 - firstZero - 1)
+                Serial.print(",");
+            }
+          }
+        }
+      }
     }
   } break;
   case 607: {
