@@ -40,7 +40,7 @@ inline int smallWindow = 0;
 inline int ammSamplesCollected = 0;
 inline const int maxKeys = 10;
 inline int CurrentKeys[]={0,0,0,0,0,0,0,0,0,0};
-inline int calibKeyBook[diffPHVals][maxKeys];
+inline int calibKeyBook[diffPHVals][maxKeys]= {0};
 inline int keyStart = 0;
 inline int keyEnd = 0;
 //////calibrator//////calibrator//////calibrator//////

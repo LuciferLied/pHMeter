@@ -292,22 +292,12 @@ void linePrinter(unsigned long now, int line) {
           } else if (holderpHValueIndex == diffPHVals) {
             holderpHValueIndex = 0 + (keyStart - i);
           }
-          int firstZero = 0;
           for (int k = 0; k < maxKeys; k++) {
-            if (calibKeyBook[holderpHValueIndex][k] != 0) {
               Serial.print("{");
               Serial.print(calibKeyBook[holderpHValueIndex][k]);
               Serial.print("}");
               if (k < maxKeys - 1)
                 Serial.print(",");
-            }
-          }
-          if (firstZero < 6) {
-            for (int k = 0; k < 6 - firstZero; k++) {
-              Serial.print("{0}");
-              if (k < 6 - firstZero - 1)
-                Serial.print(",");
-            }
           }
         } else if (keyEnd < i) {
           if (holderpHValueIndex == 0) {
@@ -317,20 +307,11 @@ void linePrinter(unsigned long now, int line) {
           }
           int firstZero = 0;
           for (int k = 0; k < maxKeys; k++) {
-            if (calibKeyBook[holderpHValueIndex][k] != 0) {
               Serial.print("{");
               Serial.print(calibKeyBook[holderpHValueIndex][k]);
               Serial.print("}");
               if (k < maxKeys - 1)
                 Serial.print(",");
-            }
-          }
-          if (firstZero < 6) {
-            for (int k = 0; k < 6 - firstZero; k++) {
-              Serial.print("{0}");
-              if (k < 6 - firstZero - 1)
-                Serial.print(",");
-            }
           }
         }
         Serial.print(" >>>");
