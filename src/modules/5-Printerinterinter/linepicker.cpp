@@ -275,7 +275,7 @@ void linePrinter(unsigned long now, int line) {
         if (firstZero < 6) {
           for (int k = 0; k < 6 - firstZero; k++) {
             Serial.print("{0}");
-            if (k < 6 - firstZero)
+            if (k < 6 - firstZero-1)
               Serial.print(",");
           }
         }
