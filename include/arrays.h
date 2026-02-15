@@ -32,8 +32,7 @@ inline int usedSize = 0;
 inline int highestOcc = 0;
 inline int largeWindow = highestOcc*0.20;
 inline int medWindow = highestOcc*0.63;
-inline int smallWindow =  - highestOcc*0.75;'¨
-'
+inline int smallWindow =  - highestOcc*0.75;
 inline int CurrentKeys[]={0,0,0,0,0,0,0,0,0,0};
-inline int keyBook[diffPHVals][10];
+inline int calibKeyBook[diffPHVals][10];
 //////calibrator//////calibrator//////calibrator//////
