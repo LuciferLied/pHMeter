@@ -185,25 +185,25 @@ void linePrinter(unsigned long now, int line) {
       if (calibOccurArr[i] > 100) {
         printPadded(calibOccurArr[i], 4);
       } else {
-        printPadded(0, 6);
+        printPadded(0, 4);
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > 1000) {
         printPadded(calibOccurArr[i], 4);
       } else {
-        printPadded(0, 6);
+        printPadded(0, 4);
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > 1500) {
         printPadded(calibOccurArr[i], 4);
       } else {
-        printPadded(0, 6);
+        printPadded(0, 4);
       }
       Serial.print(" | ");
       if (calibOccurArr[i] > 1500) {
         printPadded(calibValueArr[i], 4);
       } else {
-        printPadded(0, 6);
+        printPadded(0, 4);
       }
       Serial.println(" |/|");
     }
