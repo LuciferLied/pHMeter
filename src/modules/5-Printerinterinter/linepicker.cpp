@@ -216,7 +216,7 @@ void linePrinter(unsigned long now, int line) {
       if (calibOccurArr[i] < 1) {
         continue;
       }
-      if (i == keyStart || i == keyEnd) {
+      if (i == keyStart || i == keyEnd+1) {
             Serial.println(
          "|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=|/|");
       }
