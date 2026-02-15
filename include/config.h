@@ -64,7 +64,7 @@ inline unsigned long compCD = 6 * 60 * 1000;
 //////printer//////printer//////printer//////printer
 inline int printIteration = 0;
 inline unsigned long lastPrinterTime = 0;
-inline unsigned long printerCD = 10 * 1000;
+inline unsigned long printerCD = 20 * 1000;
 //////printer//////printer//////printer//////printer
 
 //////calibrator//////calibrator//////calibrator//////
