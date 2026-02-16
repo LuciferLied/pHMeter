@@ -64,3 +64,9 @@ void largestKey(){
     }
     
 }
+
+
+int getWrappedIndex(int current, int offset, int size) {
+    // Adding 'size' before modulo handles negative offsets perfectly
+    return (current + offset + size) % size;
+}

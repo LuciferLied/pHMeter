@@ -49,3 +49,4 @@ void countSamples();
 void setWindows();
 void findKey();
 void largestKey();
+int getWrappedIndex(int current, int offset, int size);

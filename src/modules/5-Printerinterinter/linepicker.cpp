@@ -219,8 +219,8 @@ void linePrinter(unsigned long now, int line) {
     Serial.print(
         "|/|ADC=SMPLS=LARG=MEDI=SMOL=KEY===========LOCKARRAY=================================PH====|/|");
     Serial.println();
-    printedLower = 0;
-    printedUpper = 0;
+    upperShift = 3;
+    lowerShift = 1;
     for (int i = 0; i < 100; i++) {
       int printedKeys = 0;
       if (calibOccurArr[i] < minSmpls) {
@@ -295,13 +295,8 @@ void linePrinter(unsigned long now, int line) {
       if (calibOccurArr[i] < smallWindow) {
         int holderpHValueIndex = pHValuesIndex;
         Serial.print("|/|");
-        if (i < keyStart - DistToLock && printedUpper < maxPrint) {
-          holderpHValueIndex = pHValuesIndex;
-          if (holderpHValueIndex <= 0) {
-            holderpHValueIndex = 21 - (maxPrint - printedUpper) ;
-          } else if (holderpHValueIndex >= diffPHVals) {
-            holderpHValueIndex = 0 + (maxPrint - printedUpper)+1;
-          }
+        if (i < keyStart - DistToLock && upperShift < maxShift) {
+          holderpHValueIndex = getWrappedIndex(pHValuesIndex,-upperShift, diffPHVals);
           for (int k = 0; k < maxKeys; k++) {
             if (calibKeyBook[holderpHValueIndex][k] != 0) {
               Serial.print("{");
@@ -324,14 +319,10 @@ void linePrinter(unsigned long now, int line) {
             Serial.print("     ");
           }
           Serial.print("     ");
-          printedUpper++;
-        } else if (keyEnd + DistToLock < i && printedLower < maxPrint) {
+          upperShift--;
+        } else if (keyEnd + DistToLock < i && lowerShift < maxShift) {
           holderpHValueIndex = holderpHValueIndex;
-          if (holderpHValueIndex == 0) {
-            holderpHValueIndex = 0 + (printedLower);
-          } else if (holderpHValueIndex == diffPHVals) {
-            holderpHValueIndex = 21 - (printedLower);
-          }
+          holderpHValueIndex = getWrappedIndex(pHValuesIndex,lowerShift, diffPHVals);
           if( 0 <= holderpHValueIndex && holderpHValueIndex < diffPHVals){
             for (int k = 0; k < maxKeys; k++) {
               if (calibKeyBook[holderpHValueIndex][k] != 0) {
@@ -356,7 +347,7 @@ void linePrinter(unsigned long now, int line) {
             }
             Serial.print("     ");
           }
-          printedLower++;
+          lowerShift++;
         } else {
           for (int k = 0; k < 57; k++) {
             Serial.print(" ");
