@@ -1,8 +1,9 @@
+#pragma once
 #include <Arduino.h>
 #include <arrays.h>
 #include <functions.h>
 #include <math.h>
-
+#include <pH.h>
 ////////equipment//////equipment//////equipment//////
 inline const int DIGIPIN = 7;
 inline const int ANALPIN = A5;

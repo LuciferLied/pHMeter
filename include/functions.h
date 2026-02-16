@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#pragma once
 
 //////commander//////commander//////commander
 void phaseHandler(unsigned long now);

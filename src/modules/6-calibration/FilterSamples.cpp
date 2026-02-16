@@ -12,7 +12,6 @@ void syncShiftArrays(int values[], int occurrences[], int size) {
       tempMax = occurrences[i];
     }
   }
-
   values[size - 1] = 0;
   occurrences[size - 1] = 0;
 
