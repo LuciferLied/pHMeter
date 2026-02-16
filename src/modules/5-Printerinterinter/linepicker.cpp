@@ -1,5 +1,5 @@
 #include <config.h>
-
+int z = 0;
 void linePrinter(unsigned long now, int line) {
   printerCD = 20 * 1000;
   switch (line) {
