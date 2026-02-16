@@ -1,6 +1,7 @@
 #include <config.h>
 
 void linePrinter(unsigned long now, int line) {
+  printerCD = 20 * 1000;
   switch (line) {
   case 0: {
     Serial.print(
@@ -216,9 +217,10 @@ void linePrinter(unsigned long now, int line) {
     for (int k = 0; k < 0; k++)
       Serial.print(" ");
     Serial.println("|/|");
-    Serial.print(
-        "|/|ADC=SMPLS=LARG=MEDI=SMOL=KEY===========LOCKARRAY=================================PH====|/|");
-    Serial.println();
+    Serial.println(
+        "---------------------------------------------------------------------------------------------");
+    Serial.println(
+        "|/|ADC|OCCU|LARG|MEDI|SMOL|KEY|==========LOCKARRAY===================================|=PH=|/|");
     upperShift = 3;
     lowerShift = 1;
     for (int i = 0; i < 100; i++) {
@@ -227,7 +229,8 @@ void linePrinter(unsigned long now, int line) {
         continue;
       }
       if (i == keyStart || i == keyEnd + 1) {
-        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=|/|L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K|/|");
+        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=|/"
+                       "|L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L|/|");
       }
       Serial.print("|/|");
       printPadded(calibValueArr[i], 3);
@@ -284,46 +287,19 @@ void linePrinter(unsigned long now, int line) {
             printedKeys++;
           }
         }
-        Serial.print(">>>");
+        Serial.print("==>");
         Serial.print(phValues[pHValuesIndex]);
         for (int k = printedKeys; k < maxKeys; k++) {
-          Serial.print("     ");
+          Serial.print("       ");
         }
-        Serial.print("<<<");
-        Serial.println("  |/|");
+        Serial.println("|/|");
       }
       if (calibOccurArr[i] < smallWindow) {
         int holderpHValueIndex = pHValuesIndex;
         Serial.print("|/|");
         if (i < keyStart - DistToLock && upperShift < maxShift) {
-          holderpHValueIndex = getWrappedIndex(pHValuesIndex,-upperShift, diffPHVals);
-          for (int k = 0; k < maxKeys; k++) {
-            if (calibKeyBook[holderpHValueIndex][k] != 0) {
-              Serial.print("{");
-              Serial.print(calibKeyBook[holderpHValueIndex][k]);
-              Serial.print("}");
-              printedKeys++;
-            }
-          }
-          if (printedKeys == 0) {
-            for (int k = 0; k < maxKeys; k++) {
-              Serial.print("{");
-              Serial.print("000");
-              Serial.print("}");
-              printedKeys++;
-            }
-          }
-          Serial.print(">>>");
-          Serial.print(phValues[holderpHValueIndex]);
-          for (int k = printedKeys; k < maxKeys; k++) {
-            Serial.print("     ");
-          }
-          Serial.print("     ");
-          upperShift--;
-        } else if (keyEnd + DistToLock < i && lowerShift < maxShift) {
-          holderpHValueIndex = holderpHValueIndex;
-          holderpHValueIndex = getWrappedIndex(pHValuesIndex,lowerShift, diffPHVals);
-          if( 0 <= holderpHValueIndex && holderpHValueIndex < diffPHVals){
+          holderpHValueIndex = getWrappedIndex(pHValuesIndex, -upperShift, diffPHVals);
+          if (holderpHValueIndex != pHValuesIndex) {
             for (int k = 0; k < maxKeys; k++) {
               if (calibKeyBook[holderpHValueIndex][k] != 0) {
                 Serial.print("{");
@@ -340,18 +316,50 @@ void linePrinter(unsigned long now, int line) {
                 printedKeys++;
               }
             }
-            Serial.print(">>>");
+            Serial.print("  |");
             Serial.print(phValues[holderpHValueIndex]);
             for (int k = printedKeys; k < maxKeys; k++) {
               Serial.print("     ");
             }
-            Serial.print("     ");
+            upperShift--;
+          } else { // WEIRD EDGE CASE - CORRECT LATER
+            for (int k = 0; k < 52; k++) {
+              Serial.print(" ");
+            }
+            Serial.print("|    ");
+          }
+        } else if (keyEnd + DistToLock < i && lowerShift < maxShift) {
+          holderpHValueIndex = holderpHValueIndex;
+          holderpHValueIndex = getWrappedIndex(pHValuesIndex, lowerShift, diffPHVals);
+          if (0 <= holderpHValueIndex && holderpHValueIndex < diffPHVals) {
+            for (int k = 0; k < maxKeys; k++) {
+              if (calibKeyBook[holderpHValueIndex][k] != 0) {
+                Serial.print("{");
+                Serial.print(calibKeyBook[holderpHValueIndex][k]);
+                Serial.print("}");
+                printedKeys++;
+              }
+            }
+            if (printedKeys == 0) {
+              for (int k = 0; k < maxKeys; k++) {
+                Serial.print("{");
+                Serial.print("000");
+                Serial.print("}");
+                printedKeys++;
+              }
+            }
+            Serial.print("  |");
+            Serial.print(phValues[holderpHValueIndex]);
+            for (int k = printedKeys; k < maxKeys; k++) {
+              Serial.print("     ");
+            }
           }
           lowerShift++;
         } else {
-          for (int k = 0; k < 57; k++) {
+          for (int k = 0; k < 52; k++) {
             Serial.print(" ");
           }
+          Serial.print("|    ");
         }
         Serial.println("|/|");
       }
