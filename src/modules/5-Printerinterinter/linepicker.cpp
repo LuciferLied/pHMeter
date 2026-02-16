@@ -227,12 +227,11 @@ void linePrinter(unsigned long now, int line) {
         continue;
       }
       if (i == keyStart || i == keyEnd + 1) {
-        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=|/"
-                       "|L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O|/|");
+        Serial.println("|/|=K=E=Y=K=E=Y=K=E=Y=K=E=Y=K=E=|/|L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K=L=O=C=K|/|");
       }
       Serial.print("|/|");
       printPadded(calibValueArr[i], 3);
-      Serial.print("| ");
+      Serial.print("|");
       printPadded(calibOccurArr[i], 4);
       Serial.print("|");
       if (calibOccurArr[i] >= largeWindow) {
@@ -258,7 +257,7 @@ void linePrinter(unsigned long now, int line) {
           Serial.print(" ");
         }
       }
-      Serial.print(" |");
+      Serial.print("|");
       if (calibOccurArr[i] >= smallWindow) {
         printPadded(calibValueArr[i], 3);
         Serial.print("==>");
@@ -291,7 +290,7 @@ void linePrinter(unsigned long now, int line) {
           Serial.print("     ");
         }
         Serial.print("<<<");
-        Serial.println("|/|");
+        Serial.println("  |/|");
       }
       if (calibOccurArr[i] < smallWindow) {
         int holderpHValueIndex = pHValuesIndex;
@@ -324,7 +323,7 @@ void linePrinter(unsigned long now, int line) {
           for (int k = printedKeys; k < maxKeys; k++) {
             Serial.print("     ");
           }
-          Serial.print("   ");
+          Serial.print("     ");
           printedUpper++;
         } else if (keyEnd + DistToLock < i && printedLower < maxPrint) {
           holderpHValueIndex = holderpHValueIndex;
@@ -355,11 +354,11 @@ void linePrinter(unsigned long now, int line) {
             for (int k = printedKeys; k < maxKeys; k++) {
               Serial.print("     ");
             }
-            Serial.print("   ");
+            Serial.print("     ");
           }
           printedLower++;
         } else {
-          for (int k = 0; k < 55; k++) {
+          for (int k = 0; k < 57; k++) {
             Serial.print(" ");
           }
         }
