@@ -40,17 +40,22 @@ inline int largeWindow = 0;
 inline int mediumWindow = 0;
 inline int smallWindow = 0;
 inline int ammSamplesCollected = 0;
-inline const int maxKeys = 10;
-inline int CurrentKeys[]={0,0,0,0,0,0,0,0,0};
-inline int calibKeyBook[diffPHVals][maxKeys]= {0};
+inline const int MaxKeySize = 20;
+inline int CurrentSampledKey[MaxKeySize]= {0};
+inline int calibKeyBook[diffPHVals][MaxKeySize]= {0};
 inline int keyStart = 0;
 inline int keyEnd = 0;
 inline int currLargestKey = 0;
-void sortRow(int rowNumber, int array2D[diffPHVals][maxKeys]);
+void sortRow(int rowNumber, int array2D[diffPHVals][MaxKeySize]);
 inline int upperShift = 3;
 inline int lowerShift = 1;
 inline int maxShift = 3+1;
 inline int DistToLock = 3;
+inline int currentKeyPrinted = 0;
+inline float calibTrimPercent = smallWindowMult;
+inline bool swapSampleKey = true;
+inline bool capKeys = true;
+inline int maxPrintedKeys = 10;
 //////calibrator//////calibrator//////calibrator//////
 
 

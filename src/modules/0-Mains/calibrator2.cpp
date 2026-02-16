@@ -9,7 +9,7 @@ void calibrator2(unsigned long now) {
   syncShiftArrays(calibValueArr, calibOccurArr, 100);
   CalibOccSTDDev = calculateStdDev(calibValueArr, calibOccurArr, 100);
   CalibOccMedi = calculateMedian(calibValueArr, calibOccurArr, 100);
-  CalibOccTrim = calculateTrimmedMean(calibValueArr, calibOccurArr, 100, 0.25);
+  CalibOccTrim = calculateTrimmedMean(calibValueArr, calibOccurArr, 100, calibTrimPercent);
   countSamples();
   setWindows();
   findKey();

@@ -25,11 +25,11 @@ void commander(unsigned long now) {
   }
   if (incCommand == "key") {
     int currentKeyEntry = 0;
-    for(int i = 0; i < maxKeys; i++){
+    for(int i = 0; i < MaxKeySize; i++){
       calibKeyBook[pHValuesIndex][i] = 0;
     }
     for (int i = keyStart; i < keyEnd; i++) {
-      if (currentKeyEntry == maxKeys) {
+      if (currentKeyEntry == MaxKeySize) {
         break;
       }
       calibKeyBook[pHValuesIndex][currentKeyEntry] = calibValueArr[i];
@@ -126,7 +126,32 @@ void commander(unsigned long now) {
     }
     Serial.println("};");
   }
+  if(incCommand == "phase0"){
+    minSmpls = 200;
+    largeWindowMult = 0.10;
+    mediumWindowMult = 0.36;
+    smallWindowMult = 0.60;
+    largeWindow = 0;
+    mediumWindow = 0;
+    smallWindow = 0;
+  }
+  if(incCommand == "phase1"){
+    minSmpls = 600;
+    largeWindowMult = mediumWindowMult;
+  }
+  if(incCommand == "phase2"){
+    minSmpls = highestOcc * (smallWindowMult-0.10);
+    largeWindowMult = smallWindowMult;
+    mediumWindowMult = smallWindowMult;
+    DistToLock = 1;
+  }
   if (incCommand == "endcalibration") {
+  }
+  if (incCommand == "print") {
+    if(print == false)
+      print = true;
+    else
+      print = false;
   }
   incCommand = "";
 }

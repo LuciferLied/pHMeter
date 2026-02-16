@@ -53,7 +53,7 @@ void largestKey(){
     for (int i = 0; i < diffPHVals; i++)
     {
         int counter = 0;
-        for (int k = 0; k < maxKeys; k++)
+        for (int k = 0; k < MaxKeySize; k++)
         {
             if(calibKeyBook[i][k] != 0){
                 counter++;
@@ -69,4 +69,15 @@ void largestKey(){
 int getWrappedIndex(int current, int offset, int size) {
     // Adding 'size' before modulo handles negative offsets perfectly
     return (current + offset + size) % size;
+}
+
+void newKey(){
+  if(swapSampleKey = true){
+    int i = 0;
+    for (i; i < MaxKeySize; i++)
+    {
+      CurrentSampledKey[i] = keyBundle[pHValuesIndex][i];
+    }
+    
+  }
 }
