@@ -16,6 +16,6 @@ void printer(unsigned long now, String mode, unsigned long &printerTimer, unsign
     }
     linePrinter(now, 999);
     printIteration++;
-    print = false; /////////////// FJERN
+    //print = false; /////////////// FJERN
   }
 };
