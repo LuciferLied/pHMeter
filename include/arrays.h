@@ -31,7 +31,7 @@ inline float CalibOccMedi = 0;
 inline float CalibOccTrim = 0;
 inline int usedSize = 0;
 inline int highestOcc = 0;
-inline int minSmpls = 100;
+inline int minSmpls = 200;
 inline float largeWindowMult = 0.10;
 inline float mediumWindowMult = 0.36;
 inline float smallWindowMult = 0.60;
@@ -46,4 +46,8 @@ inline int keyStart = 0;
 inline int keyEnd = 0;
 inline int currLargestKey = 0;
 void sortRow(int rowNumber, int array2D[diffPHVals][maxKeys]);
+inline int printedUpper = 0;
+inline int printedLower = 0;
+inline int maxPrint = 3;
+inline int DistToLock = 3;
 //////calibrator//////calibrator//////calibrator//////
