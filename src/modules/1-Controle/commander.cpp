@@ -141,8 +141,8 @@ void commander(unsigned long now) {
   }
   if(incCommand == "phase2"){
     minSmpls = highestOcc * (smallWindowMult-0.10);
-    largeWindowMult = smallWindowMult;
-    mediumWindowMult = smallWindowMult;
+    largeWindowMult = (smallWindowMult-0.10);
+    mediumWindowMult = (smallWindowMult-0.10);
     DistToLock = 1;
   }
   if (incCommand == "endcalibration") {
