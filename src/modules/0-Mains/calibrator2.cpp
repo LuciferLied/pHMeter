@@ -14,4 +14,14 @@ void calibrator2(unsigned long now) {
   setWindows();
   findKey();
   largestKey();
+  if(newKeyInSampler == true){
+    protectKey();
+    newKeyInSampler = false;
+  }
+  else if(newKeyInSampler == false){
+    setLock();
+  }
+  keyFromSamples(now);
+  historyAndDecay(now);
+  updateSamplingState(now);
 }

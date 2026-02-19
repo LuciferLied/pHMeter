@@ -14,62 +14,77 @@ void commander(unsigned long now) {
     mode = "Calibrator";
     // resetc
   }
-
-  if (incCommand == "rawanal") {
-  }
-  if (incCommand == "log") {
-    clusterCenters[pHValuesIndex] = mediOfTrim;
-    stdDevArr[pHValuesIndex] = stdDevOfTrim;
-    pumpTotalONTime = 0;
-    pHValuesIndex++;
-  }
   if (incCommand == "key") {
     int currentKeyEntry = 0;
-    for(int i = 0; i < MaxKeySize; i++){
-      calibKeyBook[pHValuesIndex][i] = 0;
-    }
-    for (int i = keyStart; i < keyEnd; i++) {
-      if (currentKeyEntry == MaxKeySize) {
-        break;
-      }
-      calibKeyBook[pHValuesIndex][currentKeyEntry] = calibValueArr[i];
-      currentKeyEntry++;
-    }
-    sortRow(pHValuesIndex, calibKeyBook);
+    showPHKey = false;
+    keySamplerIte = 0;
+    samplingComplete = false;
+    showKeyDetails = false;
+    idle = false;
+    sampleKey = true;
+    cleanKey();
+  }
+  if (incCommand == "lockkey") {
+    sampleKey = false;
+    idle = false;
+    showKeyDetails = true;
+    samplingComplete = false;
+    lockCurrentCalibration();
+    resetSampleKey();
   }
   if (incCommand == "tittime") {
     resetter();
     runPump = true;
     lastTitTime = now;
-    pumpTotalONTime = pumpTotalONTime + titTimeSetting;
+    pumpTotalONTime = pumpTotalONTime + currentPumpTiming;
     pump(now);
   }
   if (incCommand == "reset") {
-    resetter();
+    resetSampleKey();
   }
-  if (incCommand == "tit+") {
-    titTimeSetting = titTimeSetting + 10;
+  if (incCommand.startsWith("win")) {
+    int firstSpace = incCommand.indexOf(' ');
+    if (firstSpace != -1) {
+      String param = incCommand.substring(firstSpace + 1);
+      param.trim();
+      if (param == "reset")
+        currentWindow = 0;
+      else if (param == "large")
+        currentWindow = 1;
+      else if (param == "medi")
+        currentWindow = 2;
+      else if (param == "small")
+        currentWindow = 3;
+      else if (param == "key")
+        currentWindow = 4;
+    }
+    windowSetting();
   }
-  if (incCommand == "tit++") {
-    titTimeSetting = titTimeSetting + 25;
+  // if (incCommand.startsWith("sampletime ")) {
+  //   // Extract after "sampletime ", convert to float, then to ms
+  //   maxSampleTime = (unsigned long)(incCommand.substring(11).toFloat() * 1000.0f);
+  // }
+  if (incCommand.startsWith("tit+")) {
+    int firstSpace = incCommand.indexOf(' ');
+    if (firstSpace != -1) {
+      String param = incCommand.substring(firstSpace + 1);
+      param.trim();
+      currentPumpTiming = param.toInt();
+    }
   }
-  if (incCommand == "tit+++") {
-    titTimeSetting = titTimeSetting + 100;
+  if (incCommand.startsWith("minocc")) {
+    int firstSpace = incCommand.indexOf(' ');
+    if (firstSpace != -1) {
+      String param = incCommand.substring(firstSpace + 1);
+      param.trim();
+      minSmpls = param.toInt();
+    }
   }
-  if (incCommand == "tit++++") {
-    titTimeSetting = titTimeSetting + 200;
-  }
-  if (incCommand == "tit-") {
-    titTimeSetting = titTimeSetting - 10;
-  }
-  if (incCommand == "tit--") {
-    titTimeSetting = titTimeSetting - 25;
-  }
-  if (incCommand == "tit---") {
-    titTimeSetting = titTimeSetting - 100;
-  }
-  if (incCommand == "tit----") {
-    titTimeSetting = titTimeSetting - 200;
+  if (incCommand == "showkey") {
+    if (showPHKey == true)
+      showPHKey = false;
+    else if (showPHKey == false)
+      showPHKey = true;
   }
   if (incCommand == "emptypump") {
     runPump = true;
@@ -77,78 +92,61 @@ void commander(unsigned long now) {
     pump(now);
   }
   if (incCommand == "prev") {
+    restoreFromProtector();
     if (pHValuesIndex == 0) {
       pHValuesIndex = diffPHVals - 1;
     } else {
       pHValuesIndex--;
     }
+    showPHKey = true;
+    newKeyInSampler = true;
+    idle = true;
+    sampleKey = false;
+    showKeyDetails = false;
+    samplingComplete = false;
   }
   if (incCommand == "next") {
+    restoreFromProtector();
     if (pHValuesIndex == diffPHVals - 1) {
       pHValuesIndex = 0;
     } else {
       pHValuesIndex++;
+    }
+    showPHKey = true;
+    newKeyInSampler = true;
+    idle = true;
+    sampleKey = false;
+    showKeyDetails = false;
+    samplingComplete = false;
+  }
+  if (incCommand.startsWith("ph ")) {
+    float targetPH = incCommand.substring(3).toFloat();
+
+    for (int i = 0; i < diffPHVals; i++) {
+      // Standard 0.01 tolerance for exact 0.10 increment matching
+      if (abs(phValues[i] - targetPH) < 0.01f) {
+        restoreFromProtector();
+        showPHKey = true;
+        newKeyInSampler = true;
+        idle = true;
+        sampleKey = false;
+        showKeyDetails = false;
+        samplingComplete = false;
+        pHValuesIndex = i;
+        break;
+      }
     }
   }
   if (incCommand == "led") {
     matrixPicker();
   }
   if (incCommand == "result") {
-    Serial.println("Insertable values");
-    Serial.println("int clusterCenters[diffPHVals] = {");
-    int j = 0;
-    for (int i = 0; i < 7; i++) {
-      for (int k = 0; k < 5; k++) {
-        Serial.print(clusterCenters[j]);
-        Serial.print(",");
-        j++;
-        if (j == diffPHVals) {
-          k = 5, i = 7;
-        }
-      }
-      Serial.println("");
-    }
-    Serial.println("};");
-
-    Serial.println("Insertable values");
-    Serial.println("int stdDev[diffPHVals] = {");
-    j = 0;
-    for (int i = 0; i < 7; i++) {
-      for (int k = 0; k < 5; k++) {
-        Serial.print(stdDevArr[j]);
-        Serial.print(",");
-        j++;
-        if (j == diffPHVals) {
-          k = 5, i = 7;
-        }
-      }
-      Serial.println("");
-    }
-    Serial.println("};");
-  }
-  if(incCommand == "phase0"){
-    minSmpls = 200;
-    largeWindowMult = 0.10;
-    mediumWindowMult = 0.36;
-    smallWindowMult = 0.60;
-    largeWindow = 0;
-    mediumWindow = 0;
-    smallWindow = 0;
-  }
-  if(incCommand == "phase1"){
-    minSmpls = 600;
-    largeWindowMult = mediumWindowMult;
-  }
-  if(incCommand == "phase2"){
-    minSmpls = highestOcc * (smallWindowMult-0.10);
-    largeWindowMult = (smallWindowMult-0.10);
-    mediumWindowMult = (smallWindowMult-0.10);
-    DistToLock = 1;
+    printResults();
   }
   if (incCommand == "endcalibration") {
   }
   if (incCommand == "print") {
-    if(print == false)
+    if (print == false)
       print = true;
     else
       print = false;

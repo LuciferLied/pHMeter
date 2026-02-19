@@ -13,6 +13,14 @@ void pump(unsigned long now) {
       }
     }
   } else if (mode == "Calibrator") {
+    if (runPump == true) {
+        startPump(now);
+        runPump = false;
+        handlingPump = true;
+      } else if (handlingPump == true && now - lastPumpTime >= currentPumpTiming) {
+        stopPump();
+        handlingPump = false;
+      }
   }
 }
 void startPump(unsigned long now) {

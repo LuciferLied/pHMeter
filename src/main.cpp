@@ -8,13 +8,19 @@ void setup() {
 
 void loop() {
   unsigned long now = millis();
+  if(firstRun == true){
+    executePreset(now);
+    clearCommandArray();
+    firstRun = false;
+  }
   phaseHandler(now);
   pump(now);
   reader(now);
   if (incCommand != "") {
     commander(now);
+    incCommand = "";
   }
-  if (handlingPump == false) {
+  if (handlingPump == false && incCommand == "") {
     if (now - lastLoopTime >= loopCD) {
       if (mode == "Doser") {
         doser(now);
@@ -25,5 +31,9 @@ void loop() {
     }
     printer(now, mode, lastPrinterTime, printerCD, printIteration);
   }
-  incCommand = "";
+    reader(now);
+  if (incCommand != "") {
+    commander(now);
+    incCommand = "";
+  }
 }

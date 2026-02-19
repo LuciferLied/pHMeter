@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include <data.h>
 #include <arrays.h>
 #include <functions.h>
 #include <math.h>
@@ -19,6 +20,10 @@ inline unsigned long pumpTotalONTime = 0;
 
 //////loop//////loop//////loop//////loop//////loop
 //inline String mode = "Doser";
+inline const int maxPreCMDSize = 10;
+inline String commandArray[maxPreCMDSize] = {"minocc 600", "key"};
+inline bool firstRun = true;
+
 inline String mode = "Calibrator";
 inline String phase = "Watching";
 inline unsigned long lastPhaseCheckTime = 0;
@@ -65,7 +70,7 @@ inline unsigned long compCD = 6 * 60 * 1000;
 //////printer//////printer//////printer//////printer
 inline int printIteration = 0;
 inline unsigned long lastPrinterTime = 0;
-inline unsigned long printerCD = 5 * 1000;
+inline unsigned long printerCD = 12 * 1000;
 inline bool print = true;
 //////printer//////printer//////printer//////printer
 
