@@ -321,6 +321,8 @@ void linePrinter(unsigned long now, int line) {
         Serial.print(currentKeyPrinted);
         if (currentKeyPrinted < maxPrintedKeys)
           Serial.println("|");
+        else
+          Serial.println();
         currentKeyPrinted++;
       }
       if (calibOccurArr[i] < keyWindow) { ////IF NOT PART OF KEY
